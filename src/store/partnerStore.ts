@@ -41,7 +41,7 @@ export const usePartnerStore = defineStore({
       Loading.show();
       this.dataN = [];
       $axios
-        .get("/partners")
+        .get("partners")
         .then((res) => {
           Loading.hide();
           if (res && res.data) {
@@ -60,7 +60,7 @@ export const usePartnerStore = defineStore({
       if (this.data && this.data._id) {
         Loading.show();
         $axios
-          .get(`/partner/${this.data._id}`)
+          .get(`/partners/${this.data._id}`)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
@@ -94,7 +94,7 @@ export const usePartnerStore = defineStore({
         }
         Loading.show();
         $axios
-          .patch(`/partner/${this.data._id}`, diff)
+          .patch(`/partners/${this.data._id}`, diff)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
@@ -122,7 +122,7 @@ export const usePartnerStore = defineStore({
       if (this.selected.length) {
         const id_for_delete = this.selected.pop()?._id;
         await $axios
-          .delete(`/partner/${id_for_delete}`)
+          .delete(`/partners/${id_for_delete}`)
           .then(() => {
             Loading.hide();
             Notify.create({
@@ -146,7 +146,7 @@ export const usePartnerStore = defineStore({
         Loading.show();
         // delete this.data.category;
         $axios
-          .post("api/partner", this.data)
+          .post("/partners", this.data)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {

@@ -22,7 +22,8 @@ interface IProduct {
   name?: string;
   price?: number;
   type?: string;
-  discription?: string;
+  picture?: string;
+  description?: string;
 }
 interface IPagination {
   sortBy?: string;
@@ -33,9 +34,9 @@ interface IPagination {
   filter?: string;
 }
 interface IState {
-  dataN: Array<IProduct>; // store documents (records) after get method(s)
-  data: IProduct; // temporary object for create, edit and delete method
-  dataOld: IProduct; // temporary object for patch method (store data here before edit)
+  products: Array<IProduct>; // store documents (records) after get method(s)
+  product: IProduct; // temporary object for create, edit and delete method
+  productOld: IProduct; // temporary object for patch method (store product here before edit)
   selected: Array<IProduct>;
   isLoading: boolean;
   pagination: IPagination;
@@ -44,9 +45,9 @@ interface IState {
 export const useProductStore = defineStore({
   id: "productStore",
   state: (): IState => ({
-    dataN: [],
-    data: {},
-    dataOld: {},
+    products: [],
+    product: {},
+    productOld: {},
     selected: [],
     isLoading: false,
     pagination: {
@@ -60,33 +61,33 @@ export const useProductStore = defineStore({
   actions: {
     async getAll(): Promise<void> {
       Loading.show();
-      this.dataN = [];
+      this.products = [];
       $axios
         .get("/products")
         .then((res) => {
           Loading.hide();
           if (res && res.data) {
-            this.dataN = res.data;
+            this.products = res.data;
           }
         })
         .catch((error) => {
           Loading.hide();
           Notify.create({
-            message: `Error (${error.response.data.status}) while get all: ${error.response.data.message}`,
+            message: `Error (${error.response.product.status}) while get all: ${error.response.product.message}`,
             color: "negative",
           });
         });
     },
     async getById(): Promise<void> {
-      if (this.data && this.data._id) {
+      if (this.product && this.product._id) {
         Loading.show();
         $axios
-          .get(`api/product/${this.data._id}`)
+          .get(`/products/${this.product._id}`)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              this.data = res.data;
-              Object.assign(this.dataOld, this.data);
+              this.product = res.data;
+              Object.assign(this.productOld, this.product);
             }
           })
           .catch((error) => {
@@ -106,8 +107,8 @@ export const useProductStore = defineStore({
         )
         .then((res) => {
           if (res && res.data) {
-            this.dataN = res.data.orders;
-            // this.numberOfStreets = res.data.count; // ez ide majd nem kell
+            this.products = res.data.orders;
+            // this.numberOfStreets = res.product.count; // ez ide majd nem kell
             this.pagination.rowsNumber = res.data.count;
           }
           Loading.hide();
@@ -115,17 +116,17 @@ export const useProductStore = defineStore({
         .catch((error) => {
           Loading.hide();
           Notify.create({
-            message: `Error (${error.response.data.status}) while fetch paginated: ${error.response.data.message}`,
+            message: `Error (${error.response.product.status}) while fetch paginated: ${error.response.product.message}`,
             color: "negative",
           });
         });
     },
     async editById(): Promise<void> {
-      if (this.data && this.data._id) {
+      if (this.product && this.product._id) {
         const diff: any = {};
-        Object.keys(this.data).forEach((k, i) => {
-          const newValue = Object.values(this.data)[i];
-          const oldValue = Object.values(this.dataOld)[i];
+        Object.keys(this.product).forEach((k, i) => {
+          const newValue = Object.values(this.product)[i];
+          const oldValue = Object.values(this.productOld)[i];
           if (newValue != oldValue) diff[k] = newValue;
         });
         if (Object.keys(diff).length == 0) {
@@ -137,11 +138,11 @@ export const useProductStore = defineStore({
         }
         Loading.show();
         $axios
-          .patch(`/product/${this.data._id}`, diff)
+          .patch(`products/${this.product._id}`, diff)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              this.data = {};
+              this.product = {};
               this.getAll();
               Notify.create({
                 message: `Document with id=${res.data._id} has been edited successfully!`,
@@ -153,7 +154,7 @@ export const useProductStore = defineStore({
           .catch((error) => {
             Loading.hide();
             Notify.create({
-              message: `Error (${error.response.data.status}) while edit by id: ${error.response.data.message}`,
+              message: `Error (${error.response.product.status}) while edit by id: ${error.response.product.message}`,
               color: "negative",
             });
           });
@@ -165,7 +166,7 @@ export const useProductStore = defineStore({
       if (this.selected.length) {
         const id_for_delete = this.selected.pop()?._id;
         await $axios
-          .delete(`/product/${id_for_delete}`)
+          .delete(`products/${id_for_delete}`)
           .then(() => {
             Loading.hide();
             Notify.create({
@@ -176,7 +177,7 @@ export const useProductStore = defineStore({
           .catch((error) => {
             Loading.hide();
             Notify.create({
-              message: `Error (${error.response.data.status}) while delete by id: ${error.response.data.message}`,
+              message: `Error (${error.response.product.status}) while delete by id: ${error.response.product.message}`,
               color: "negative",
             });
           });
@@ -185,15 +186,15 @@ export const useProductStore = defineStore({
       }
     },
     async create(): Promise<void> {
-      if (this.data) {
+      if (this.product) {
         Loading.show();
-        // delete this.data.category;
+        // delete this.product.category;
         $axios
-          .post("/product", this.data)
+          .post("products/", this.product)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              // this.data = {};
+              // this.product = {};
               this.getAll();
               Notify.create({
                 message: `New document with id=${res.data._id} has been saved successfully!`,
@@ -205,7 +206,7 @@ export const useProductStore = defineStore({
           .catch((error) => {
             Loading.hide();
             Notify.create({
-              message: `Error (${error.response.data.status}) while create: ${error.response.data.message}`,
+              message: `Error (${error.response.product.status}) while create: ${error.response.product.message}`,
               color: "negative",
             });
           });

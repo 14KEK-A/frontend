@@ -46,6 +46,14 @@
       disabled: false,
       separator: true,
     },
+    {
+      icon: "mdi-lifebuoy",
+      text: "Products",
+      name: "allproducts",
+      route: "/allprducts",
+      disabled: false,
+      separator: true,
+    },
   ]);
   /*
   function toggleLanguage() {
@@ -106,6 +114,13 @@
               <q-separator v-if="menuItem.separator" :key="'sep' + index" />
             </template>
 
+            <q-item clickable :to="{ name: 'allproducts' }">
+              <q-item-section avatar>
+                <q-icon name="mdi-table" />
+              </q-item-section>
+              <q-item-section>Products</q-item-section>
+            </q-item>
+
             <q-item
               clickable
               :disable="usersStore.loggedUser == null"
@@ -147,6 +162,12 @@
                 <q-icon name="mdi-table" />
               </q-item-section>
               <q-item-section>Order</q-item-section>
+            </q-item>
+            <q-item clickable :disable="usersStore.loggedUser == null" :to="{ name: 'qtableuser' }">
+              <q-item-section avatar>
+                <q-icon name="mdi-table" />
+              </q-item-section>
+              <q-item-section>User</q-item-section>
             </q-item>
             <q-separator />
           </q-list>

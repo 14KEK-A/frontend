@@ -58,7 +58,7 @@ export const useRatingStore = defineStore({
       if (this.data && this.data._id) {
         Loading.show();
         $axios
-          .get(`api/rating/${this.data._id}`)
+          .get(`/ratings/${this.data._id}`)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
@@ -92,7 +92,7 @@ export const useRatingStore = defineStore({
         }
         Loading.show();
         $axios
-          .patch(`api/rating/${this.data._id}`, diff)
+          .patch(`/ratings/${this.data._id}`, diff)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
@@ -120,7 +120,7 @@ export const useRatingStore = defineStore({
       if (this.selected.length) {
         const id_for_delete = this.selected.pop()?._id;
         await $axios
-          .delete(`api/rating/${id_for_delete}`)
+          .delete(`/ratings/${id_for_delete}`)
           .then(() => {
             Loading.hide();
             Notify.create({
@@ -144,7 +144,7 @@ export const useRatingStore = defineStore({
         Loading.show();
         // delete this.data.category;
         $axios
-          .post("api/rating", this.data)
+          .post("/ratings", this.data)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {

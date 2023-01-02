@@ -12,6 +12,7 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "outDir": "dist",
     "lib": ["esnext", "dom"],
     "types": ["node", "vite/client", "vitest", "vitest/globals"],
     "paths": {

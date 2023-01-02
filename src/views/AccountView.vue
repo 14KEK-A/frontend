@@ -78,11 +78,13 @@
         no-caps
         @click="appStore.showLoginDialog = true"
       />
+      <LoginDialog />
       <q-btn
         class="shadow-10"
         color="blue"
-        :label="anyLoggedUser ? 'Logout from Google' : 'Login/Register with Google'"
+        :label="anyLoggedUser ? 'Cancel' : 'Register'"
         no-caps
+        @click="appStore.showRegisterDialog = true"
       />
       <LoginDialog />
     </div>

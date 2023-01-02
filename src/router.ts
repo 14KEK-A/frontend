@@ -16,6 +16,10 @@ import EditViewPartner from "./views/EditViewPartner.vue";
 import EditViewProduct from "./views/EditViewProduct.vue";
 import EditViewOrder from "./views/EditViewOrder.vue";
 import EditViewRating from "./views/EditViewRating.vue";
+import Products from "./views/Products.vue";
+import EditViewUser from "./views/EditViewUser.vue";
+import NewViewUser from "./views/NewViewUser.vue";
+import QTableViewUser from "./views/QTableViewUser.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -107,6 +111,26 @@ const routes: Array<RouteRecordRaw> = [
     path: "/qhelp",
     name: "qhelp",
     component: HelpView,
+  },
+  {
+    path: "/allproducts",
+    name: "allproducts",
+    component: Products,
+  },
+  {
+    path: "/qtableuser",
+    name: "qtableuser",
+    component: QTableViewUser,
+  },
+  {
+    path: "/newuser",
+    name: "newuser",
+    component: NewViewUser,
+  },
+  {
+    path: "/edituser",
+    name: "edituser",
+    component: EditViewUser,
   },
 ];
 const router = createRouter({

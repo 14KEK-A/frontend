@@ -7,7 +7,7 @@
   const productStore = useProductStore();
   const usersStore = useUsersStore();
 
-  const { isLoading, dataN, pagination, selected } = storeToRefs(productStore);
+  const { isLoading, products, pagination, selected } = storeToRefs(productStore);
 
   const showEditDialog = ref(false);
 
@@ -20,12 +20,12 @@
   }
 
   function newRecord(): void {
-    productStore.data = {};
+    productStore.product = {};
     router.push("/newproduct");
   }
 
   function editRecord(): void {
-    productStore.data = selected.value[0];
+    productStore.product = selected.value[0];
     productStore.getById();
     router.push("/editproduct");
   }
@@ -55,9 +55,9 @@
     { name: "price", label: "price", field: "price", align: "left", sortable: true },
     { name: "type", label: "type", field: "type", align: "left", sortable: true },
     {
-      name: "discription",
-      label: "discription",
-      field: "discription",
+      name: "description",
+      label: "description",
+      field: "description",
       align: "left",
       sortable: true,
     },
@@ -93,7 +93,7 @@
         dense
         :filter="pagination.filter"
         row-key="_id"
-        :rows="dataN"
+        :rows="products"
         selection="multiple"
         title="Products"
         wrap-cells
@@ -141,10 +141,10 @@
       <q-card class="q-pa-md" style="width: 60vw; min-width: 300px">
         <q-form class="q-mx-md" @reset="Reset()" @submit="Submit">
           <div class="row">
-            <div v-if="productStore.data" class="col-12 q-gutter-md">
+            <div v-if="productStore.product" class="col-12 q-gutter-md">
               <h4 class="text-center q-mt-lg q-mb-none">Edit document</h4>
               <!-- <q-select
-              //   v-model="productStore.data.adosav"
+              //   v-model="productStore.product.adosav"
               //   clearable
               //   emit-value
               //   filled
@@ -152,16 +152,16 @@
               //   map-options
               //   option-label="sav"
               //   option-value="_id"
-              //   :options="adosavokStore.dataN.sort((a, b) => a.sav!.localeCompare(b.sav!))"
+              //   :options="adosavokStore.products.sort((a, b) => a.sav!.localeCompare(b.sav!))"
               // /> -->
-              <q-input v-model="productStore.data._id" filled label="id...:" type="text" />
-              <q-input v-model="productStore.data.name" filled label="Név:" type="text" />
-              <q-input v-model="productStore.data.price" filled label="Ár:" type="number" />
-              <q-input v-model="productStore.data.type" filled label="Tipus:" type="text" />
+              <q-input v-model="productStore.product._id" filled label="id...:" type="text" />
+              <q-input v-model="productStore.product.name" filled label="Név:" type="text" />
+              <q-input v-model="productStore.product.price" filled label="Ár:" type="number" />
+              <q-input v-model="productStore.product.type" filled label="Tipus:" type="text" />
               <q-input
-                v-model="productStore.data.discription"
+                v-model="productStore.product.description"
                 filled
-                label="Discription:"
+                label="description:"
                 type="text"
               />
               <div class="row justify-center">
@@ -169,9 +169,9 @@
                 <q-btn class="q-mr-md" color="red" label="Mégsem" no-caps type="reset" />
               </div>
 
-              <!-- p>Actual: {{ productStore.data }}</p> -->
+              <!-- p>Actual: {{ productStore.product }}</p> -->
 
-              <!-- <p>Old: {{ productStore.dataOld }}</p> -->
+              <!-- <p>Old: {{ productStore.productOld }}</p> -->
 
               <!-- <p>Selected: {{ productStore.selected }}</p> -->
             </div>
@@ -191,7 +191,7 @@
 //         :columns="columns"
 //         dense
 //         row-key="_id"
-//         :rows="dataN"
+//         :rows="products"
 //         selection="multiple"
 //         title="Product"
 //         wrap-cells
