@@ -1,5 +1,13 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+// import store from '../src/';
+
+// /* eslint-disable no-new */
+// new Vue({
+//   el: '#app',
+//   store,
+//   render: h => h(App),
+// });
 
 import "vue-global-api/ref";
 import "vue-global-api/toRef";

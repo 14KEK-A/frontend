@@ -20,6 +20,9 @@ import Products from "./views/Products.vue";
 import EditViewUser from "./views/EditViewUser.vue";
 import NewViewUser from "./views/NewViewUser.vue";
 import QTableViewUser from "./views/QTableViewUser.vue";
+import NewRegister from "./views/RegisterView.vue";
+import Salesmen from "./views/Salesmen.vue";
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -118,6 +121,11 @@ const routes: Array<RouteRecordRaw> = [
     component: Products,
   },
   {
+    path: "/salesmen",
+    name: "salesmen",
+    component: Salesmen,
+  },
+  {
     path: "/qtableuser",
     name: "qtableuser",
     component: QTableViewUser,
@@ -126,6 +134,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/newuser",
     name: "newuser",
     component: NewViewUser,
+  },
+  {
+    path: "/newregister",
+    name: "newregister",
+    component: NewRegister,
   },
   {
     path: "/edituser",

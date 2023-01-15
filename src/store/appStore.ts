@@ -5,7 +5,13 @@ interface IState {
   email: string;
   password: string;
 }
-
+interface IReg {
+  showRegisterDialog: boolean;
+  name: string;
+  email: string;
+  password: string;
+  address?: string;
+}
 export const useAppStore = defineStore({
   id: "appStore",
   state: (): IState => ({
@@ -21,6 +27,26 @@ export const useAppStore = defineStore({
   actions: {
     setShowLoginDialog(value: boolean): void {
       this.showLoginDialog = value;
+    },
+  },
+});
+export const useAppStoreR = defineStore({
+  id: "appStoreR",
+  state: (): IReg => ({
+    showRegisterDialog: false,
+    name: "",
+    email: "",
+    password: "",
+    address: "",
+  }),
+  getters: {
+    getShowRegisterDialog(): boolean {
+      return this.showRegisterDialog;
+    },
+  },
+  actions: {
+    setShowRegisterDialog(value: boolean): void {
+      this.showRegisterDialog = value;
     },
   },
 });

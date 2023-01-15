@@ -23,7 +23,7 @@
     <div class="row justify-center">
       <div v-if="productStore.product" class="col-12 col-sm-8 col-md-6 col-lg-4 q-gutter-md">
         <q-form class="q-gutter-md" @reset="Reset()" @submit="Submit">
-          <h4 class="text-center q-mt-lg q-mb-none">Edit prduct</h4>
+          <h4 class="text-center q-mt-lg q-mb-none">Edit product</h4>
           <q-input v-model="productStore.product.name" filled label="Name:" type="text" />
           <q-input v-model="productStore.product.price" filled label="Price:" type="text" />
           <q-input v-model="productStore.product.type" filled label="Type:" type="text" />

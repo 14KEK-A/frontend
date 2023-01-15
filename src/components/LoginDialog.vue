@@ -65,12 +65,7 @@
                 no-caps
                 @click="LoginLogout()"
               />
-              <q-btn
-                color="red"
-                label="Close dialog"
-                no-caps
-                @click="appStore.showLoginDialog = false"
-              />
+              <q-btn color="red" label="Close" no-caps @click="appStore.showLoginDialog = false" />
             </q-card-actions>
           </div>
         </div>

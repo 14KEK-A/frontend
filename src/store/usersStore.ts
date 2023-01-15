@@ -26,8 +26,13 @@ interface IPagination {
 }
 interface IUser {
   _id?: string;
+  role_name?: string;
+  first_name?: string;
+  last_name?: string;
+  user_name?: string;
+  phone_number?: string;
   email?: string;
-  name?: string;
+  picture_URL?: string;
   password?: string;
   address?: string;
 }

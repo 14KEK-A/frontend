@@ -24,7 +24,8 @@
     <div class="row justify-center">
       <div v-if="userStore.user" class="col-12 col-sm-8 col-md-6 col-lg-4 q-gutter-md">
         <q-form class="q-gutter-md" @reset="Reset()" @submit="Submit">
-          <h4 class="text-center q-mt-lg q-mb-none">New record</h4>
+          <h4 class="text-center q-mt-lg q-mb-none">Register</h4>
+
           <q-input
             v-model.string="userStore.user.first_name"
             filled
@@ -44,29 +45,36 @@
             type="text"
           />
           <q-input
-            v-model.string="userStore.user.role_name"
-            filled
-            label="Role_Name:"
-            type="text"
-          />
-          <q-input
             v-model.string="userStore.user.phone_number"
             filled
             label="Phone_Number:"
             type="text"
           />
           <q-input v-model.string="userStore.user.address" filled label="Address:" type="text" />
-          <q-input v-model.string="userStore.user.password" filled label="Password:" type="text" />
+          <div class="row justify-center">
+            <q-input
+              v-model.string="userStore.user.password"
+              filled
+              label="Password:"
+              type="text"
+            />
+            <q-input
+              v-model.string="userStore.user.password"
+              filled
+              label="Password confirm:"
+              type="text"
+            />
+          </div>
           <q-input v-model.string="userStore.user.email" filled label="Email:" type="text" />
-          <q-input
+          <!-- <q-input
             v-model.string="userStore.user.picture_URL"
             filled
             label="Picture_URL:"
             type="text"
-          />
+          /> -->
           <div class="row justify-center">
             <q-btn class="q-mr-md" color="green" label="Mentés" no-caps type="submit" />
-            <q-btn class="q-mr-md" color="red" label="Mégsem" no-caps type="reset" />
+            <!-- <q-btn class="q-mr-md" color="red" label="Mégsem" no-caps type="reset" /> -->
           </div>
           <p>Actual: {{ userStore.user }}</p>
         </q-form>

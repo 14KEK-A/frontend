@@ -23,10 +23,15 @@
     <div class="row justify-center">
       <div v-if="userStore.user" class="col-12 col-sm-8 col-md-6 col-lg-4 q-gutter-md">
         <q-form class="q-gutter-md" @reset="Reset()" @submit="Submit">
-          <h4 class="text-center q-mt-lg q-mb-none">Edit prduct</h4>
-          <q-input v-model="userStore.user.name" filled label="Name:" type="text" />
+          <h4 class="text-center q-mt-lg q-mb-none">Edit product</h4>
+          <q-input v-model="userStore.user.first_name" filled label="First Name:" type="text" />
+          <q-input v-model="userStore.user.last_name" filled label="Last Name:" type="text" />
+          <q-input v-model="userStore.user.user_name" filled label="User Name:" type="text" />
+          <q-input v-model="userStore.user.role_name" filled label="Role Name:" type="text" />
           <q-input v-model="userStore.user.email" filled label="Email:" type="text" />
           <q-input v-model="userStore.user.address" filled label="Address:" type="text" />
+          <q-input v-model="userStore.user.phone_number" filled label="Phone number:" type="text" />
+          <q-input v-model="userStore.user.picture_URL" filled label="Picture_URL:" type="text" />
           <q-input v-model="userStore.user.password" filled label="Password:" type="text" />
           <div class="row justify-center">
             <q-btn class="q-mr-md" color="green" label="Mentés" no-caps type="submit" />

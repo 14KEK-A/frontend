@@ -1,9 +1,39 @@
 <script setup lang="ts">
   import router from "src/router";
   import { useUsersStore } from "./store/usersStore";
+  import { useAppStore } from "../src/store/appStore";
+  //import AccountView from "./views/AccountView.vue";
 
   const leftDrawer = ref<boolean>(true);
   const usersStore = useUsersStore();
+  const appStore = useAppStore();
+
+  // const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
+
+  // interface IReactiveData {
+  //   email: string;
+  //   password: string;
+  // }
+
+  // const state = reactive<IReactiveData>({
+  //   email: "student005@jedlik.eu",
+  //   password: "test5",
+  // });
+
+  // function Submit() {
+  //   if (!anyLoggedUser.value) {
+  //     usersStore.loginUser({
+  //       email: state.email,
+  //       password: state.password,
+  //     });
+  //   } else {
+  //     usersStore.logOut();
+  //   }
+  // }
+  function newRegister(): void {
+    usersStore.user = {};
+    router.push("/newregister");
+  }
 
   const menuItems = ref([
     {
@@ -46,14 +76,14 @@
       disabled: false,
       separator: true,
     },
-    {
-      icon: "mdi-lifebuoy",
-      text: "Products",
-      name: "allproducts",
-      route: "/allprducts",
-      disabled: false,
-      separator: true,
-    },
+    // {
+    //   icon: "mdi-lifebuoy",
+    //   text: "Products",
+    //   name: "allproducts",
+    //   route: "/allprducts",
+    //   disabled: false,
+    //   separator: true,
+    // },
   ]);
   /*
   function toggleLanguage() {
@@ -78,7 +108,7 @@
   <div class="q-pa-md">
     <q-layout view="hHh Lpr fFf">
       <q-header class="bg-primary text-white text-left" elevated>
-        <q-toolbar>
+        <!-- <q-toolbar>
           <q-btn dense flat icon="mdi-menu" round @click="leftDrawer = !leftDrawer" />
           <q-toolbar-title id="title" style="cursor: pointer" @click="router.push({ path: '/' })">
             4pet WEBSHOP -
@@ -87,6 +117,57 @@
           <q-btn flat icon="mdi-cart" @click="$q.dark.toggle" />
           <q-btn flat icon="mdi-theme-light-dark" @click="$q.dark.toggle" />
           <q-btn dense flat icon="mdi-menu" round @click="leftDrawer = !leftDrawer" />
+        </q-toolbar> -->
+        <q-toolbar style="height: 64px">
+          <q-toolbar-title id="title" style="cursor: pointer" @click="router.push({ path: '/' })">
+            4PET WEBSHOP
+          </q-toolbar-title>
+          <q-btn
+            v-if="$q.screen.gt.xs"
+            class="q-ml-sm q-px-md pull-right"
+            flat
+            label="About"
+            no-caps
+            no-wrap
+          ></q-btn>
+          <q-btn
+            v-if="usersStore.loggedUser"
+            class="q-ml-sm q-px-md pull-right"
+            flat
+            label="Logout"
+            no-caps
+            @click="appStore.showLoginDialog = true"
+          ></q-btn>
+          <q-btn
+            v-else
+            v-show="usersStore.loggedUser == null"
+            class="q-ml-sm q-px-md pull-right"
+            flat
+            label="Login"
+            no-caps
+            :to="{ login: '/account' }"
+            @click="appStore.showLoginDialog = true"
+          ></q-btn>
+          <q-btn
+            v-show="usersStore.loggedUser == null"
+            class="q-ml-sm q-px-md pull-right"
+            flat
+            label="Register"
+            no-caps
+            @click="newRegister"
+          ></q-btn>
+          <q-btn
+            class="q-ml-sm q-px-md pull-right"
+            label="Cart"
+            no-caps
+            no-wrap
+            outline
+            to="/home"
+          ></q-btn>
+          <!-- <q-btn flat icon="mdi-cart" @click="$q.dark.toggle" /> -->
+          <q-btn flat icon="mdi-theme-light-dark" @click="$q.dark.toggle" />
+          <q-btn dense flat icon="mdi-menu" round @click="leftDrawer = !leftDrawer" />
+          <q-space />
         </q-toolbar>
       </q-header>
       <q-header class="bg-static-info" elevated></q-header>
@@ -119,6 +200,13 @@
                 <q-icon name="mdi-table" />
               </q-item-section>
               <q-item-section>Products</q-item-section>
+            </q-item>
+
+            <q-item clickable :to="{ name: 'salesmen' }">
+              <q-item-section avatar>
+                <q-icon name="mdi-table" />
+              </q-item-section>
+              <q-item-section>Our salesmen</q-item-section>
             </q-item>
 
             <q-item
@@ -163,7 +251,7 @@
               </q-item-section>
               <q-item-section>Order</q-item-section>
             </q-item>
-            <q-item clickable :disable="usersStore.loggedUser == null" :to="{ name: 'qtableuser' }">
+            <q-item clickable :to="{ name: 'qtableuser' }">
               <q-item-section avatar>
                 <q-icon name="mdi-table" />
               </q-item-section>

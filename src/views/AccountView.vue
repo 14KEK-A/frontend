@@ -1,33 +1,59 @@
 <script setup lang="ts">
   import { useUsersStore } from "../store/usersStore";
-  import { useAppStore } from "../store/appStore";
+  import { useAppStore, useAppStoreR } from "../store/appStore";
   import LoginDialog from "../components/LoginDialog.vue";
+  import { storeToRefs } from "pinia";
+  import router from "src/router";
 
   const usersStore = useUsersStore();
   const appStore = useAppStore();
+  const appStoreR = useAppStoreR();
 
-  const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
-
-  interface IReactiveData {
-    email: string;
-    password: string;
-  }
-
-  const state = reactive<IReactiveData>({
-    email: "student005@jedlik.eu",
-    password: "test5",
+  const { isLoading, users, pagination, selected } = storeToRefs(usersStore);
+  watch(isLoading, () => {
+    usersStore.getAll();
   });
-
+  const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
+  const loggedUser = usersStore.getLoggedUser;
+  onMounted(() => {
+    usersStore.getAll();
+  });
+  onMounted(() => {
+    usersStore.getById();
+    usersStore.user = selected.value[0];
+  });
   function Submit() {
-    if (!anyLoggedUser.value) {
-      usersStore.loginUser({
-        email: state.email,
-        password: state.password,
-      });
-    } else {
-      usersStore.logOut();
-    }
+    usersStore.editById();
   }
+  function editRecord(): void {
+    usersStore.user = selected.value[0];
+    usersStore.getById();
+    router.push("/edituser");
+  }
+  function newRegister(): void {
+    usersStore.user = {};
+    router.push("/newregister");
+  }
+  // interface IReactiveData {
+  //   email: string;
+  //   password: string;
+  // }
+
+  // const state = reactive<IReactiveData>({
+  //   email: "student005@jedlik.eu",
+  //   password: "test5",
+  // });
+
+  // function Submit() {
+  //   if (!anyLoggedUser.value) {
+  //     usersStore.loginUser({
+  //       email: state.email,
+  //       password: state.password,
+  //     });
+  //   } else {
+  //     usersStore.logOut();
+  //   }
+  // }
 </script>
 
 <!-- <template>
@@ -74,19 +100,57 @@
       <q-btn
         class="shadow-10"
         color="info"
-        :label="anyLoggedUser ? 'Show logout dialog' : 'Show login dialog'"
+        :label="anyLoggedUser ? 'Logout' : 'Login'"
         no-caps
         @click="appStore.showLoginDialog = true"
       />
       <LoginDialog />
       <q-btn
+        v-show="usersStore.loggedUser == null"
         class="shadow-10"
         color="blue"
-        :label="anyLoggedUser ? 'Cancel' : 'Register'"
+        label="Register"
         no-caps
-        @click="appStore.showRegisterDialog = true"
+        @click="newRegister"
       />
       <LoginDialog />
+    </div>
+    <div v-if="anyLoggedUser" class="q-pa-md row q-gutter-sm">
+      <q-card class="q-ma-md text-black col-xs-12 col-md-4 col-lg-3">
+        <q-card-section>
+          <div class="text-h6">First Name: {{ usersStore.user.first_name }}</div>
+          <div class="text-h6">Last Name: {{ usersStore.user.last_name }}</div>
+          <div class="text-h6">Username: {{ usersStore.user.user_name }}</div>
+        </q-card-section>
+        <q-separator inset />
+
+        <q-card-section>Address: {{ usersStore.user.address }}</q-card-section>
+        <q-card-section>E-mail: {{ usersStore.user.email }}</q-card-section>
+        <q-card-section>Phone number: {{ usersStore.user.phone_number }}</q-card-section>
+        <div style="max-height: 35vh; overflow: hidden">
+          <q-img
+            class="pic"
+            :src="usersStore.user?.picture_URL"
+            style="max-widht: 100%; height: auto; opacity: 0.6"
+          ></q-img>
+        </div>
+        <!-- <q-card-section>
+          <q-form class="q-gutter-md">
+            <q-input v-model="user.first_name" filled label="First Name" lazy-rules />
+
+            <q-input v-model="user.last_name" filled label="Last Name" lazy-rules />
+
+            <q-input v-model="user.email" filled label="Email" lazy-rules />
+
+            <q-input v-model="user.phone_number" filled label="Phone" lazy-rules />
+
+            <div>
+              <q-btn color="primary" label="Update" type="submit" />
+            </div>
+          </q-form>
+        </q-card-section> -->
+        <q-separator class="q-my-md" inset />
+      </q-card>
     </div>
   </q-page>
 </template>

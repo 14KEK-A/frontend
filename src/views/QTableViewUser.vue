@@ -33,7 +33,8 @@
   const columns: any[] = [
     { name: "_id", label: "_id", field: "_id", align: "left", sortable: true },
     { name: "email", label: "email", field: "email", align: "left", sortable: true },
-    { name: "name", label: "name", field: "name", align: "left", sortable: true },
+    { name: "user_name", label: "user_name", field: "user_name", align: "left", sortable: true },
+    { name: "role_name", label: "role_name", field: "role_name", align: "left", sortable: true },
   ];
 
   onMounted(() => {
