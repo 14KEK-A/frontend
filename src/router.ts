@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { useUsersStore } from "./store/usersStore";
 import AboutView from "./views/AboutView.vue";
 import AccountView from "./views/AccountView.vue";
 import GridView from "./views/GridView.vue";
@@ -22,7 +23,6 @@ import NewViewUser from "./views/NewViewUser.vue";
 import QTableViewUser from "./views/QTableViewUser.vue";
 import NewRegister from "./views/RegisterView.vue";
 import Salesmen from "./views/Salesmen.vue";
-
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -152,6 +152,15 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  next();
+  if (to.meta.needsAuth) {
+    const usersStore = useUsersStore();
+    if (usersStore.getLoggedUser) {
+      next();
+    } else {
+      next("/account");
+    }
+  } else {
+    next();
+  }
 });
 export default router;

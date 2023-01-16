@@ -28,6 +28,7 @@ interface IUser {
   _id?: string;
   role_name?: string;
   first_name?: string;
+  role_bits?: number;
   last_name?: string;
   user_name?: string;
   phone_number?: string;

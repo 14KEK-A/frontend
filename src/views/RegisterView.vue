@@ -1,11 +1,8 @@
 <script setup lang="ts">
-  // import { useUtcakStore } from "../store/utcakStore";
   import { useUsersStore } from "../store/usersStore";
   import router from "src/router";
-
-  // const utcakStore = useUtcakStore();
+  const nshow = false;
   const userStore = useUsersStore();
-  //const useruser = userStore.user.role_name == "user";
   onMounted(() => {
     // empty
   });
@@ -26,51 +23,72 @@
         <q-form class="q-gutter-md" @reset="Reset()" @submit="Submit">
           <h4 class="text-center q-mt-lg q-mb-none">Register</h4>
           <q-input
+            v-show="nshow"
+            v-model.string="userStore.user.role_name"
+            default="user"
+            label="Role_Name:"
+            type="text"
+          />
+          <q-input
+            v-show="nshow"
+            v-model.number="userStore.user.role_bits"
+            default="255"
+            label="Role_Bits:"
+            type="number"
+          />
+          <q-input
             v-model.string="userStore.user.first_name"
-            filled
             label="First_Name:"
+            outlined
+            rounded
             type="text"
           />
           <q-input
             v-model.string="userStore.user.last_name"
-            filled
             label="Last_Name:"
+            outlined
+            rounded
             type="text"
           />
           <q-input
             v-model.string="userStore.user.user_name"
-            filled
             label="User_Name:"
+            outlined
+            rounded
             type="text"
           />
           <q-input
             v-model.string="userStore.user.phone_number"
-            filled
             label="Phone_Number:"
+            outlined
+            rounded
             type="text"
           />
-          <q-input v-model.string="userStore.user.address" filled label="Address:" type="text" />
+          <q-input
+            v-model.string="userStore.user.address"
+            label="Address:"
+            outlined
+            rounded
+            type="text"
+          />
           <div class="row justify-center">
+            <q-input v-model.string="userStore.user.password" label="Password:" type="text" />
             <q-input
               v-model.string="userStore.user.password"
-              filled
-              label="Password:"
-              type="text"
-            />
-            <q-input
-              v-model.string="userStore.user.password"
-              filled
               label="Password confirm:"
+              outlined
+              rounded
               type="text"
             />
           </div>
-          <q-input v-model.string="userStore.user.email" filled label="Email:" type="text" />
-          <!-- <q-input
-            v-model.string="userStore.user.picture_URL"
-            filled
-            label="Picture_URL:"
+          <q-input
+            v-model.string="userStore.user.email"
+            label="Email:"
+            outlined
+            rounded
             type="text"
-          /> -->
+          />
+          <q-input v-model.string="userStore.user.picture_URL" label="Picture_URL:" type="text" />
           <div class="row justify-center">
             <q-btn class="q-mr-md" color="green" label="Mentés" no-caps type="submit" />
             <!-- <q-btn class="q-mr-md" color="red" label="Mégsem" no-caps type="reset" /> -->

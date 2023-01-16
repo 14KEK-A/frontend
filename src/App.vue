@@ -45,14 +45,6 @@
       separator: false,
     },
     {
-      icon: "mdi-grid",
-      text: "gridDemo",
-      name: "gridDemo",
-      route: "/grid",
-      disabled: false,
-      separator: false,
-    },
-    {
       icon: "mdi-account",
       text: "account",
       name: "account",
@@ -67,14 +59,6 @@
       route: "/about",
       disabled: false,
       separator: false,
-    },
-    {
-      icon: "mdi-lifebuoy",
-      text: "q-help",
-      name: "qhelp",
-      route: "/qhelp",
-      disabled: false,
-      separator: true,
     },
     // {
     //   icon: "mdi-lifebuoy",
@@ -92,16 +76,16 @@
       if (e.name != "") e.text = t(e.name);
     });
   }*/
-  const links = ref([
-    {
-      icon: "mdi-fruit-pineapple",
-      text: "Pinia",
-      name: "",
-      link: "https://pinia.vuejs.org/introduction.html",
-      disabled: false,
-      separator: false,
-    },
-  ]);
+  // const links = ref([
+  //   {
+  //     icon: "mdi-fruit-pineapple",
+  //     text: "Pinia",
+  //     name: "",
+  //     link: "https://pinia.vuejs.org/introduction.html",
+  //     disabled: false,
+  //     separator: false,
+  //   },
+  // ]);
 </script>
 
 <template>
@@ -210,8 +194,8 @@
             </q-item>
 
             <q-item
+              v-show="usersStore.loggedUser?.role_name == 'admin'"
               clickable
-              :disable="usersStore.loggedUser == null"
               :to="{ name: 'qtablerating' }"
             >
               <q-item-section avatar>
@@ -221,8 +205,8 @@
             </q-item>
 
             <q-item
+              v-show="usersStore.loggedUser?.role_name == 'admin'"
               clickable
-              :disable="usersStore.loggedUser == null"
               :to="{ name: 'qtablepartner' }"
             >
               <q-item-section avatar>
@@ -232,8 +216,8 @@
             </q-item>
 
             <q-item
+              v-show="usersStore.loggedUser?.role_name == 'admin'"
               clickable
-              :disable="usersStore.loggedUser == null"
               :to="{ name: 'qtableproduct' }"
             >
               <q-item-section avatar>
@@ -242,8 +226,8 @@
               <q-item-section>Product</q-item-section>
             </q-item>
             <q-item
+              v-show="usersStore.loggedUser?.role_name == 'admin'"
               clickable
-              :disable="usersStore.loggedUser == null"
               :to="{ name: 'qtableorder' }"
             >
               <q-item-section avatar>
@@ -251,7 +235,11 @@
               </q-item-section>
               <q-item-section>Order</q-item-section>
             </q-item>
-            <q-item clickable :to="{ name: 'qtableuser' }">
+            <q-item
+              v-show="usersStore.loggedUser?.role_name == 'admin'"
+              clickable
+              :to="{ name: 'qtableuser' }"
+            >
               <q-item-section avatar>
                 <q-icon name="mdi-table" />
               </q-item-section>
@@ -261,7 +249,7 @@
           </q-list>
           <!-- links: -->
           <q-list>
-            <template v-for="(linkItem, index) in links" :key="index">
+            <!-- <template v-for="(linkItem, index) in links" :key="index">
               <q-item clickable :href="linkItem.link" target="_blank">
                 <q-item-section avatar>
                   <q-icon :name="linkItem.icon" />
@@ -271,7 +259,7 @@
                 </q-item-section>
               </q-item>
               <q-separator v-if="linkItem.separator" :key="'sep' + index" />
-            </template>
+            </template> -->
           </q-list>
         </q-scroll-area>
       </q-drawer>
