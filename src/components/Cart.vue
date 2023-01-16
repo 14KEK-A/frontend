@@ -1,46 +1,6 @@
-<template>
-  <div class="box">
-    <span v-if="!hasProduct()">No products :/</span>
-    <div v-for="(product, index) in getProductsInCart" :key="index" class="box-item">
-      <img alt="" class="item-thumb" :src="product.image" />
-      <h3 class="item-name">{{ product.name }}</h3>
-      <span class="item-amount">Amount: 1</span>
-      <span class="item-price">R$ {{ product.price }}, 00</span>
-    </div>
-    <div v-if="hasProduct()" class="cart-info">
-      <span>Total: R$ {{ totalPrice() }}, 00</span>
-      <router-link to="/checkout">
-        <btn btn-color="btn btn-small btn-info" @click="showPopupCart()">View cart</btn>
-      </router-link>
-    </div>
-  </div>
-</template>
+<template><div></div></template>
 
-<script>
-  import { mapGetters, mapActions } from "vuex";
-  import btn from "./Btn";
-
-  export default {
-    components: {
-      btn,
-    },
-    methods: {
-      ...mapActions(["showOrHiddenPopupCart"]),
-      hasProduct() {
-        return this.getProductsInCart.length > 0;
-      },
-      totalPrice() {
-        return this.getProductsInCart.reduce((current, next) => current + next.price, 0);
-      },
-      showPopupCart() {
-        this.showOrHiddenPopupCart();
-      },
-    },
-    computed: {
-      ...mapGetters(["getProductsInCart"]),
-    },
-  };
-</script>
+<script lang="hu"></script>
 
 <style scoped>
   .box {
