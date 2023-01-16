@@ -1,13 +1,13 @@
 <script setup lang="ts"></script>
 <template>
-  <div>
+  <!-- <div>
     <div class="row bg-white q-mt-sm">
       <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="border-right: 1px solid lightgrey">
-        <q-card class="q-mr-sm no-shadow">
-          <!--<q-card-section class="text-subtitle1 text-grey-8">-->
-          <!--Filter By-->
-          <!--</q-card-section>-->
-          <transition-group appear enter-active-class="animated fadeInLeft">
+        <q-card class="q-mr-sm no-shadow"> -->
+  <!--<q-card-section class="text-subtitle1 text-grey-8">-->
+  <!--Filter By-->
+  <!--</q-card-section>-->
+  <!-- <transition-group appear enter-active-class="animated fadeInLeft">
             <q-list v-for="item in filters_list" :key="item.label">
               <q-item-label class="text-weight-bolder text-grey-9 q-pt-md q-pb-sm" header>
                 {{ item.label }}
@@ -20,8 +20,8 @@
                 dense
                 tag="label"
               >
-                <q-item-section class="q-px-md text-caption" side>
-                  <!-- <q-checkbox
+                <q-item-section class="q-px-md text-caption" side> -->
+  <!-- <q-checkbox
                     v-model="it[it.model]"
                     dense
                     dense
@@ -34,7 +34,7 @@
                   >
                     {{ it.label }}({{ it.count }})
                   </q-checkbox> -->
-                </q-item-section>
+  <!-- </q-item-section>
               </q-item>
               <q-item
                 class="q-py-none text-weight-bold text-indigo text-caption cursor-pointer"
@@ -59,27 +59,27 @@
               src="https://miipublications.com.my/wp-content/uploads/2019/10/shop-online-760x490.jpg"
             ></q-img>
 
-            <q-card-section class="q-pb-xs q-pt-md">
-              <!--<q-btn-->
-              <!--fab-->
-              <!--color="primary"-->
-              <!--icon="shopping_cart"-->
-              <!--class="absolute"-->
-              <!--style="top: 0; right: 12px; transform: translateY(-50%);"-->
-              <!--&gt;</q-btn>-->
+            <q-card-section class="q-pb-xs q-pt-md"> -->
+  <!--<q-btn-->
+  <!--fab-->
+  <!--color="primary"-->
+  <!--icon="shopping_cart"-->
+  <!--class="absolute"-->
+  <!--style="top: 0; right: 12px; transform: translateY(-50%);"-->
+  <!--&gt;</q-btn>-->
 
-              <div class="row no-wrap items-center">
+  <!-- <div class="row no-wrap items-center">
                 <div class="col text-subtitle2 ellipsis-2-lines text-grey-10">Test name</div>
-                <div class="col-auto text-grey text-caption q-pt-md row no-wrap items-center">
-                  <!--<q-icon name="place"></q-icon>-->
-                  <!--250 ft-->
-                </div>
+                <div class="col-auto text-grey text-caption q-pt-md row no-wrap items-center"> -->
+  <!--<q-icon name="place"></q-icon>-->
+  <!--250 ft-->
+  <!-- </div>
               </div>
 
               <q-rating v-model="stars" color="orange" :max="5" readonly size="17px"></q-rating>
-            </q-card-section>
+            </q-card-section> -->
 
-            <!-- <q-card-section class="q-py-sm">
+  <!-- <q-card-section class="q-py-sm">
               <div>
                 <div class="text-caption text-green-8 text-weight-bolder">Special Price</div>
                 <span class="text-h6">₹3,149</span>
@@ -90,17 +90,17 @@
                   20% off
                 </span>
               </div> -->
-            <!--<div class="text-subtitle1">-->
-            <!--$・Italian, Cafe-->
-            <!--</div>-->
-            <!--<div class="text-caption text-grey">-->
-            <!--Small plates, salads & sandwiches in an intimate setting.-->
-            <!--</div>-->
-            <!-- </q-card-section> -->
+  <!--<div class="text-subtitle1">-->
+  <!--$・Italian, Cafe-->
+  <!--</div>-->
+  <!--<div class="text-caption text-grey">-->
+  <!--Small plates, salads & sandwiches in an intimate setting.-->
+  <!--</div>-->
+  <!-- </q-card-section> -->
 
-            <q-separator></q-separator>
+  <q-separator></q-separator>
 
-            <q-card-actions>
+  <!-- <q-card-actions>
               <q-btn class="text-weight-bold text-capitalize" color="primary" dense flat>
                 View details
               </q-btn>
@@ -109,7 +109,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 <script>
   export default {

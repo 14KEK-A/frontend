@@ -5,7 +5,7 @@
 
   // const utcakStore = useUtcakStore();
   const userStore = useUsersStore();
-
+  //const useruser = userStore.user.role_name == "user";
   onMounted(() => {
     // empty
   });
@@ -25,7 +25,6 @@
       <div v-if="userStore.user" class="col-12 col-sm-8 col-md-6 col-lg-4 q-gutter-md">
         <q-form class="q-gutter-md" @reset="Reset()" @submit="Submit">
           <h4 class="text-center q-mt-lg q-mb-none">Register</h4>
-
           <q-input
             v-model.string="userStore.user.first_name"
             filled

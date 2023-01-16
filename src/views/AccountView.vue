@@ -1,20 +1,19 @@
 <script setup lang="ts">
   import { useUsersStore } from "../store/usersStore";
-  import { useAppStore, useAppStoreR } from "../store/appStore";
+  import { useAppStore } from "../store/appStore";
   import LoginDialog from "../components/LoginDialog.vue";
   import { storeToRefs } from "pinia";
   import router from "src/router";
 
   const usersStore = useUsersStore();
   const appStore = useAppStore();
-  const appStoreR = useAppStoreR();
 
-  const { isLoading, users, pagination, selected } = storeToRefs(usersStore);
+  const { isLoading, selected } = storeToRefs(usersStore);
   watch(isLoading, () => {
     usersStore.getAll();
   });
   const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
-  const loggedUser = usersStore.getLoggedUser;
+  //const loggedUser = usersStore.getLoggedUser;
   onMounted(() => {
     usersStore.getAll();
   });
@@ -22,14 +21,14 @@
     usersStore.getById();
     usersStore.user = selected.value[0];
   });
-  function Submit() {
-    usersStore.editById();
-  }
-  function editRecord(): void {
-    usersStore.user = selected.value[0];
-    usersStore.getById();
-    router.push("/edituser");
-  }
+  // function Submit() {    ---EDIT ACCOUNT
+  //   usersStore.editById();
+  // }
+  // function editRecord(): void {
+  //   usersStore.user = selected.value[0];
+  //   usersStore.getById();
+  //   router.push("/edituser");
+  // }
   function newRegister(): void {
     usersStore.user = {};
     router.push("/newregister");
@@ -76,7 +75,7 @@
             v-model="state.password"
             filled
             label="Password:"
-            :rules="[(v) => (v != null && v != '') || 'Please fill in!']"
+            :rules="[(v) => (v != null && v != '') || 'Please fill in!']" ------------------------------hasznos a regnél
             type="text"
           />
           <div class="row justify-center">
@@ -116,7 +115,7 @@
       <LoginDialog />
     </div>
     <div v-if="anyLoggedUser" class="q-pa-md row q-gutter-sm">
-      <q-card class="q-ma-md text-black col-xs-12 col-md-4 col-lg-3">
+      <!-- <q-card class="q-ma-md text-black col-xs-12 col-md-4 col-lg-3">
         <q-card-section>
           <div class="text-h6">First Name: {{ usersStore.user.first_name }}</div>
           <div class="text-h6">Last Name: {{ usersStore.user.last_name }}</div>
@@ -134,23 +133,8 @@
             style="max-widht: 100%; height: auto; opacity: 0.6"
           ></q-img>
         </div>
-        <!-- <q-card-section>
-          <q-form class="q-gutter-md">
-            <q-input v-model="user.first_name" filled label="First Name" lazy-rules />
-
-            <q-input v-model="user.last_name" filled label="Last Name" lazy-rules />
-
-            <q-input v-model="user.email" filled label="Email" lazy-rules />
-
-            <q-input v-model="user.phone_number" filled label="Phone" lazy-rules />
-
-            <div>
-              <q-btn color="primary" label="Update" type="submit" />
-            </div>
-          </q-form>
-        </q-card-section> -->
         <q-separator class="q-my-md" inset />
-      </q-card>
+      </q-card> -->
     </div>
   </q-page>
 </template>

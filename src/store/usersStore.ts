@@ -108,22 +108,43 @@ export const useUsersStore = defineStore({
           Notify.create({ message: "Error on log out", color: "negative" });
         });
     },
+    async RegisterUser(params: IUser): Promise<void> {
+      Loading.show();
+      $axios
+        .post("auth/register", {
+          email: params.email,
+          password: params.password,
+        })
+        .then((res) => {
+          this.loggedUser = res.data;
+          Loading.hide();
+          Notify.create({
+            message: `${res.data.first_name} ${res.data.last_name} with ${res.data.email} e-mail is registered in`,
+            color: "positive",
+          });
+        })
+        .catch(() => {
+          this.loggedUser = null;
+          Loading.hide();
+          Notify.create({ message: "Error on Registration", color: "negative" });
+        });
+    },
     async create(): Promise<void> {
       if (this.user) {
         Loading.show();
         // delete this.user.category;
         $axios
-          .post("users/", this.user)
+          .post("auth/register", this.user)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
               // this.user = {};
               this.getAll();
               Notify.create({
-                message: `New document with id=${res.data._id} has been saved successfully!`,
+                message: `New user with id=${res.data._id} has been registered successfully!`,
                 color: "positive",
               });
-              router.push("/qtableuser");
+              //router.push("/qtableuser");
             }
           })
           .catch((error) => {
