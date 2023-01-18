@@ -14,8 +14,19 @@ interface IRating {
   _id?: number; // PK
   star?: number;
   comment?: string;
-  users_id?: { nev: string };
-  partners_id?: number | { nev: string; address: string; email: string; phone_number: string };
+  users_id?: {
+    role_name: string;
+    role_bits: number;
+    first_name: string;
+    last_name: string;
+    user_name: string;
+    password: string;
+    address: string;
+    email: string;
+    phone_number: string;
+    picture_URL: string;
+  };
+  partners_id?: { nev: string; address: string; email: string; phone_number: string };
   products_id?: {
     name: string;
     price: number;

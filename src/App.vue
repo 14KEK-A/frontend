@@ -34,6 +34,10 @@
     usersStore.user = {};
     router.push("/newregister");
   }
+  function about(): void {
+    usersStore.user = {};
+    router.push("/about");
+  }
   function LOGIN(): void {
     usersStore.user = {};
     router.push("/account");
@@ -121,6 +125,7 @@
             label="About"
             no-caps
             no-wrap
+            @click="about"
           ></q-btn>
           <q-btn
             v-if="usersStore.loggedUser"

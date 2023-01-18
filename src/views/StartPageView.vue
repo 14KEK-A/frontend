@@ -20,8 +20,7 @@
             src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg"
             style="width: 150px; height: 150px"
           /> -->
-          <!-- <div class="text-h3 text-white text-center">Quasar Framework</div>
-          <div class="text-h6 text-grey-3 text-center">v{{ $q.version }}</div> -->
+          <div class="text-h3 text-grey text-center">4PET WebShop</div>
         </div>
       </template>
     </q-parallax>

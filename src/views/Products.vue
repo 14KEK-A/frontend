@@ -24,11 +24,10 @@
   <q-page v-model:selected="selected" :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-4'" padding>
     <!-- :style="{ 'background-image': `url(${book?.picture})` }"
 			style="height: 90vh; background-repeat: no-repeat; background-color: opacity: 0.1;" -->
-    <q-card class="card">
+    <q-card class="card" q-ml-sm q-px-md>
       <q-card-section>
-        <span>Categories:</span>
         <div class="row">
-          <q-badge align="middle" color="amber-3" transparent>
+          <q-badge align="middle" transparent>
             <span class="text-h5 text-black">Products:</span>
           </q-badge>
         </div>
@@ -65,7 +64,6 @@
             ></q-img>
           </div>
           <q-separator class="q-my-md" inset />
-
           <!-- <q-rating
             v-model="productStore.product.ratings_id?.star"
             color="yellow"

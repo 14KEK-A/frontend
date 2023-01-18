@@ -2,26 +2,17 @@
 
 <template>
   <q-page>
-    <div class="column flex-center">
-      <h2>Jedlik Ányos Technikum - Győr</h2>
-      <h2>
-        Colors of theme
-        <a href="https://quasar.dev/style/theme-builder" target="_blank">
-          <q-chip>
-            <q-avatar color="info" icon="bookmark" text-color="white" />
-            Theme-builder
-          </q-chip>
-        </a>
-      </h2>
-    </div>
-    <q-banner class="bg-primary text-white">Primary</q-banner>
-    <q-banner class="bg-secondary text-white">Secondary</q-banner>
-    <q-banner class="bg-accent text-white">Accent</q-banner>
-    <q-banner class="bg-dark text-white">Dark</q-banner>
-    <q-banner class="bg-positive text-white">Positive</q-banner>
-    <q-banner class="bg-negative text-white">Negative</q-banner>
-    <q-banner class="bg-info text-white">Info</q-banner>
-    <q-banner class="bg-warning text-white">Warning</q-banner>
+    <q-parallax src="https://images.alphacoders.com/774/thumb-1920-774079.jpg">
+      <h1 class="text-grey">4PET WebShop</h1>
+      <div class="column flex-center">
+        <h2></h2>
+        <div>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati facere alias tenetur
+          deleniti libero non aspernatur aliquam maxime suscipit, dicta dolorem hic quibusdam
+          consectetur debitis voluptates mollitia delectus maiores ipsa.
+        </div>
+      </div>
+    </q-parallax>
   </q-page>
 </template>
 
@@ -31,7 +22,9 @@
     font-size: 2vw;
     margin: auto;
   }
-  a {
-    text-decoration: none;
+  div {
+    font-size: medium;
+    margin: auto;
+    color: grey;
   }
 </style>

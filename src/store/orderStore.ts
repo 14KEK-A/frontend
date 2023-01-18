@@ -21,7 +21,7 @@ interface IOrder {
   _id?: number; // PK
   ship_date?: Date;
   order_date?: Date;
-  Orders_id?: number;
+  //products: [orderdetails];
 }
 interface IPagination {
   sortBy?: string;

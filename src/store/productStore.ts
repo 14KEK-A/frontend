@@ -24,8 +24,8 @@ interface IProduct {
   type?: string;
   picture?: string;
   description?: string;
-  orders_id?: number | { nev: string };
-  carts_id?: number | { nev: string };
+  orders_id?: { ship_date: Date; order_date: Date };
+  carts_id?: { nev: string };
   //ratings_id?: { stars: number };
 }
 interface IPagination {

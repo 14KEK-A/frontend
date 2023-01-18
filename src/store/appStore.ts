@@ -10,8 +10,8 @@ export const useAppStore = defineStore({
   id: "appStore",
   state: (): IState => ({
     showLoginDialog: false,
-    email: "student005@jedlik.eu",
-    password: "test5",
+    email: "admin@admin.com",
+    password: "admin",
   }),
   getters: {
     getShowLoginDialog(): boolean {

@@ -19,9 +19,8 @@
 			style="height: 90vh; background-repeat: no-repeat; background-color: opacity: 0.1;" -->
     <q-card class="card">
       <q-card-section>
-        <span>Categories:</span>
         <div class="row">
-          <q-badge align="middle" color="amber-3" transparent>
+          <q-badge align="middle" transparent>
             <span class="text-h5 text-black">Our Salesmen</span>
           </q-badge>
         </div>
@@ -34,12 +33,15 @@
         >
           <div v-if="user.role_name == 'salesman'">
             <q-card-section>
-              <div class="text-h6">{{ user.first_name }}</div>
-              <div class="text-h6">{{ user.last_name }}</div>
+              <div class="text-h6">First Name: {{ user.first_name }}</div>
+              <div class="text-h6">Last Name: {{ user.last_name }}</div>
             </q-card-section>
             <q-separator inset />
-
-            <q-card-section>Telefonszám: {{ user.phone_number }}</q-card-section>
+            <q-card-section>Contacts:</q-card-section>
+            <q-card-section>
+              <div>Telefonszám: {{ user.phone_number }}</div>
+              <div>Email: {{ user.email }}</div>
+            </q-card-section>
             <div style="max-height: 35vh; overflow: hidden">
               <q-img
                 class="pic"
