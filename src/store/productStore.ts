@@ -24,6 +24,9 @@ interface IProduct {
   type?: string;
   picture?: string;
   description?: string;
+  orders_id?: number | { nev: string };
+  carts_id?: number | { nev: string };
+  //ratings_id?: { stars: number };
 }
 interface IPagination {
   sortBy?: string;

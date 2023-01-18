@@ -145,30 +145,38 @@
                 v-model="orderStore.data.adosav"
                 clearable
                 emit-value
-                filled
+                rounded outlined
                 label="Adósáv:"
                 map-options
                 option-label="sav"
                 option-value="_id"
                 :options="adosavokStore.dataN.sort((a, b) => a.sav!.localeCompare(b.sav!))"
               /> -->
-              <q-input v-model="orderStore.data._id" filled label="id:" type="text" />
+              <q-input v-model="orderStore.data._id" label="id:" outlined rounded type="text" />
               <q-date
                 v-model="orderStore.data.order_date"
-                filled
                 label="Rendelés Dátuma:"
+                outlined
+                rounded
                 type="date"
               />
               <q-date
                 v-model="orderStore.data.ship_date"
-                filled
                 label="Szállítás dátuma:"
+                outlined
+                rounded
                 type="date"
               />
-              <q-input v-model="orderStore.data.Orders_id" filled label="id_order:" type="number" />
+              <q-input
+                v-model="orderStore.data.Orders_id"
+                label="id_order:"
+                outlined
+                rounded
+                type="number"
+              />
               <div class="row justify-center">
-                <q-btn class="q-mr-md" color="green" label="Mentés" no-caps type="submit" />
-                <q-btn class="q-mr-md" color="red" label="Mégsem" no-caps type="reset" />
+                <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />
               </div>
               <!-- <p>Actual: {{ orderStore.data }}</p> -->
               <!-- <p>Old: {{ orderStore.dataOld }}</p> -->

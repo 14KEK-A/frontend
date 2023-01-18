@@ -90,8 +90,8 @@
           />
           <q-input v-model.string="userStore.user.picture_URL" label="Picture_URL:" type="text" />
           <div class="row justify-center">
-            <q-btn class="q-mr-md" color="green" label="Mentés" no-caps type="submit" />
-            <!-- <q-btn class="q-mr-md" color="red" label="Mégsem" no-caps type="reset" /> -->
+            <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
+            <!-- <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" /> -->
           </div>
           <p>Actual: {{ userStore.user }}</p>
         </q-form>

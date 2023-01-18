@@ -147,26 +147,51 @@
               //   v-model="productStore.product.adosav"
               //   clearable
               //   emit-value
-              //   filled
+              //   rounded outlined
               //   label="Adósáv:"
               //   map-options
               //   option-label="sav"
               //   option-value="_id"
               //   :options="adosavokStore.products.sort((a, b) => a.sav!.localeCompare(b.sav!))"
               // /> -->
-              <q-input v-model="productStore.product._id" filled label="id...:" type="text" />
-              <q-input v-model="productStore.product.name" filled label="Név:" type="text" />
-              <q-input v-model="productStore.product.price" filled label="Ár:" type="number" />
-              <q-input v-model="productStore.product.type" filled label="Tipus:" type="text" />
+              <q-input
+                v-model="productStore.product._id"
+                label="id...:"
+                outlined
+                rounded
+                type="text"
+              />
+              <q-input
+                v-model="productStore.product.name"
+                label="Név:"
+                outlined
+                rounded
+                type="text"
+              />
+              <q-input
+                v-model="productStore.product.price"
+                label="Ár:"
+                outlined
+                rounded
+                type="number"
+              />
+              <q-input
+                v-model="productStore.product.type"
+                label="Tipus:"
+                outlined
+                rounded
+                type="text"
+              />
               <q-input
                 v-model="productStore.product.description"
-                filled
                 label="description:"
+                outlined
+                rounded
                 type="text"
               />
               <div class="row justify-center">
-                <q-btn class="q-mr-md" color="green" label="Mentés" no-caps type="submit" />
-                <q-btn class="q-mr-md" color="red" label="Mégsem" no-caps type="reset" />
+                <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />
               </div>
 
               <!-- p>Actual: {{ productStore.product }}</p> -->

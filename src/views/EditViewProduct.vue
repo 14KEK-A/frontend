@@ -24,18 +24,25 @@
       <div v-if="productStore.product" class="col-12 col-sm-8 col-md-6 col-lg-4 q-gutter-md">
         <q-form class="q-gutter-md" @reset="Reset()" @submit="Submit">
           <h4 class="text-center q-mt-lg q-mb-none">Edit product</h4>
-          <q-input v-model="productStore.product.name" filled label="Name:" type="text" />
-          <q-input v-model="productStore.product.price" filled label="Price:" type="text" />
-          <q-input v-model="productStore.product.type" filled label="Type:" type="text" />
+          <q-input v-model="productStore.product.name" label="Name:" outlined rounded type="text" />
+          <q-input
+            v-model="productStore.product.price"
+            label="Price:"
+            outlined
+            rounded
+            type="text"
+          />
+          <q-input v-model="productStore.product.type" label="Type:" outlined rounded type="text" />
           <q-input
             v-model="productStore.product.description"
-            filled
             label="description:"
+            outlined
+            rounded
             type="text"
           />
           <div class="row justify-center">
-            <q-btn class="q-mr-md" color="green" label="Mentés" no-caps type="submit" />
-            <q-btn class="q-mr-md" color="red" label="Mégsem" no-caps type="reset" />
+            <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
+            <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />
           </div>
           <!-- <p>Actual: {{ utcakStore.data }}</p> -->
           <!-- <p>Old: {{ utcakStore.dataOld }}</p> -->

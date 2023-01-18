@@ -8,7 +8,7 @@
   const usersStore = useUsersStore();
   const appStore = useAppStore();
 
-  const { isLoading, selected } = storeToRefs(usersStore);
+  const { isLoading } = storeToRefs(usersStore);
   watch(isLoading, () => {
     usersStore.getAll();
   });
@@ -22,7 +22,7 @@
   });
   function editRecord(): void {
     usersStore.getLoggedUser;
-    router.push("/edituser");
+    router.push("/useredituser");
   }
   //   function getLoggedUser() {
   //   if (!anyLoggedUser.value) {
@@ -87,7 +87,7 @@
           ></q-img>
         </div>
         <q-separator class="q-my-md" inset />
-        <q-btn class="q-my-md" color="blue" no-caps @click="editRecord">Edit record</q-btn>
+        <q-btn class="q-my-md" color="blue" no-caps @click="editRecord">Edit</q-btn>
       </q-card>
     </div>
   </q-page>

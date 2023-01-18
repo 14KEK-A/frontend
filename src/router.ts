@@ -23,6 +23,7 @@ import NewViewUser from "./views/NewViewUser.vue";
 import QTableViewUser from "./views/QTableViewUser.vue";
 import NewRegister from "./views/RegisterView.vue";
 import Salesmen from "./views/Salesmen.vue";
+import UserEditUser from "./views/EditUserforUser.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -144,6 +145,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/edituser",
     name: "edituser",
     component: EditViewUser,
+  },
+  {
+    path: "/useredituser",
+    name: "useredituser",
+    component: UserEditUser,
   },
 ];
 const router = createRouter({

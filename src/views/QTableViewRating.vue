@@ -7,7 +7,7 @@
   const ratingStore = useRatingStore();
   const usersStore = useUsersStore();
 
-  const { isLoading, dataN, selected } = storeToRefs(ratingStore);
+  const { isLoading, ratings, selected } = storeToRefs(ratingStore);
 
   watch(isLoading, () => {
     ratingStore.getAll();
@@ -18,12 +18,12 @@
   }
 
   function newRecord(): void {
-    ratingStore.data = {};
+    ratingStore.rating = {};
     router.push("/newrating");
   }
 
   function editRecord(): void {
-    ratingStore.data = selected.value[0];
+    ratingStore.rating = selected.value[0];
     ratingStore.getById();
     router.push("/editrating");
   }
@@ -52,7 +52,7 @@
         :columns="columns"
         dense
         row-key="_id"
-        :rows="dataN"
+        :rows="ratings"
         selection="multiple"
         title="Rating"
         wrap-cells

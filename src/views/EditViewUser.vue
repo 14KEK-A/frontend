@@ -24,18 +24,60 @@
       <div v-if="userStore.user" class="col-12 col-sm-8 col-md-6 col-lg-4 q-gutter-md">
         <q-form class="q-gutter-md" @reset="Reset()" @submit="Submit">
           <h4 class="text-center q-mt-lg q-mb-none">Edit product</h4>
-          <q-input v-model="userStore.user.first_name" filled label="First Name:" type="text" />
-          <q-input v-model="userStore.user.last_name" filled label="Last Name:" type="text" />
-          <q-input v-model="userStore.user.user_name" filled label="User Name:" type="text" />
-          <q-input v-model="userStore.user.role_name" filled label="Role Name:" type="text" />
-          <q-input v-model="userStore.user.email" filled label="Email:" type="text" />
-          <q-input v-model="userStore.user.address" filled label="Address:" type="text" />
-          <q-input v-model="userStore.user.phone_number" filled label="Phone number:" type="text" />
-          <q-input v-model="userStore.user.picture_URL" filled label="Picture_URL:" type="text" />
-          <q-input v-model="userStore.user.password" filled label="Password:" type="text" />
+          <q-input
+            v-model="userStore.user.first_name"
+            label="First Name:"
+            outlined
+            rounded
+            type="text"
+          />
+          <q-input
+            v-model="userStore.user.last_name"
+            label="Last Name:"
+            outlined
+            rounded
+            type="text"
+          />
+          <q-input
+            v-model="userStore.user.user_name"
+            label="User Name:"
+            outlined
+            rounded
+            type="text"
+          />
+          <q-input
+            v-model="userStore.user.role_name"
+            label="Role Name:"
+            outlined
+            rounded
+            type="text"
+          />
+          <q-input v-model="userStore.user.email" label="Email:" outlined rounded type="text" />
+          <q-input v-model="userStore.user.address" label="Address:" outlined rounded type="text" />
+          <q-input
+            v-model="userStore.user.phone_number"
+            label="Phone number:"
+            outlined
+            rounded
+            type="text"
+          />
+          <q-input
+            v-model="userStore.user.picture_URL"
+            label="Picture_URL:"
+            outlined
+            rounded
+            type="text"
+          />
+          <q-input
+            v-model="userStore.user.password"
+            label="Password:"
+            outlined
+            rounded
+            type="text"
+          />
           <div class="row justify-center">
-            <q-btn class="q-mr-md" color="green" label="Mentés" no-caps type="submit" />
-            <q-btn class="q-mr-md" color="red" label="Mégsem" no-caps type="reset" />
+            <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
+            <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />
           </div>
           <!-- <p>Actual: {{ utcakStore.data }}</p> -->
           <!-- <p>Old: {{ utcakStore.dataOld }}</p> -->

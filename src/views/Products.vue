@@ -5,8 +5,6 @@
 
   const productStore = useProductStore();
   const { isLoading, selected } = storeToRefs(productStore);
-  const show = ref(false);
-  //const products = ref<productStore.products[]>([]);
 
   watch(isLoading, () => {
     productStore.getAll();
@@ -18,9 +16,8 @@
   onMounted(() => {
     productStore.getById();
   });
-  // function BTN(): void {
-  //   productStore.product = selected.value[0];
-  //   productStore.getById();
+  // function actrating(): void {
+  //   ratingStore.getrating?.products_id;
   // }
 </script>
 <template>
@@ -68,11 +65,17 @@
             ></q-img>
           </div>
           <q-separator class="q-my-md" inset />
+
+          <!-- <q-rating
+            v-model="productStore.product.ratings_id?.star"
+            color="yellow"
+            icon="star"
+            size="2em"
+          /> -->
           <q-card-actions>
-            <q-expansion-item>
+            <q-expansion-item expand-separator icon="view_module" label="More" switch-toggle-side>
               <q-card-section>{{ product.description }}</q-card-section>
             </q-expansion-item>
-            <button index @click="show = !show">View</button>
           </q-card-actions>
           <q-card-actions>
             <q-btn>Add to Cart</q-btn>

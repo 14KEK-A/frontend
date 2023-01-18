@@ -1,12 +1,12 @@
 <script setup lang="ts">
   import router from "src/router";
   import { useUsersStore } from "./store/usersStore";
-  import { useAppStore } from "../src/store/appStore";
+  // import { useAppStore } from "../src/store/appStore";
   //import AccountView from "./views/AccountView.vue";
 
   const leftDrawer = ref<boolean>(true);
   const usersStore = useUsersStore();
-  const appStore = useAppStore();
+  //const appStore = useAppStore();
 
   // const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
 
@@ -33,6 +33,14 @@
   function newRegister(): void {
     usersStore.user = {};
     router.push("/newregister");
+  }
+  function LOGIN(): void {
+    usersStore.user = {};
+    router.push("/account");
+  }
+  function LOGOUT(): void {
+    usersStore.user = {};
+    router.push("/account");
   }
 
   const menuItems = ref([
@@ -120,8 +128,9 @@
             flat
             label="Logout"
             no-caps
-            @click="appStore.showLoginDialog = true"
+            @click="LOGOUT"
           ></q-btn>
+          <!-- (appStore.showLoginDialog = true) -->
           <q-btn
             v-else
             v-show="usersStore.loggedUser == null"
@@ -129,8 +138,7 @@
             flat
             label="Login"
             no-caps
-            :to="{ login: '/account' }"
-            @click="appStore.showLoginDialog = true"
+            @click="LOGIN"
           ></q-btn>
           <q-btn
             v-show="usersStore.loggedUser == null"

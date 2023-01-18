@@ -1,5 +1,31 @@
 <script setup lang="ts"></script>
 <template>
+  <div class="q-pa-md">
+    <q-parallax>
+      <template #media>
+        <img src="https://images.alphacoders.com/774/thumb-1920-774079.jpg" />
+      </template>
+
+      <template #content="scope">
+        <div
+          class="absolute column items-center"
+          :style="{
+            opacity: 0.45 + (1 - scope.percentScrolled) * 0.55,
+            top: scope.percentScrolled * 60 + '%',
+            left: 0,
+            right: 0,
+          }"
+        >
+          <!-- <img
+            src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg"
+            style="width: 150px; height: 150px"
+          /> -->
+          <!-- <div class="text-h3 text-white text-center">Quasar Framework</div>
+          <div class="text-h6 text-grey-3 text-center">v{{ $q.version }}</div> -->
+        </div>
+      </template>
+    </q-parallax>
+  </div>
   <!-- <div>
     <div class="row bg-white q-mt-sm">
       <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="border-right: 1px solid lightgrey">
