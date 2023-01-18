@@ -138,7 +138,7 @@
 </template>
 <script>
   export default {
-    name: "StarPage.vue",
+    name: "StarPageVue",
     data() {
       return {
         stars: 4,

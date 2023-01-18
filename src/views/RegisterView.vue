@@ -3,9 +3,6 @@
   import router from "src/router";
   const nshow = false;
   const userStore = useUsersStore();
-  onMounted(() => {
-    // empty
-  });
 
   function Submit() {
     userStore.create();

@@ -3,6 +3,7 @@
   import { storeToRefs } from "pinia";
   import router from "src/router";
   import { useUsersStore } from "../store/usersStore";
+  import { watch, onMounted } from "vue";
 
   const ratingStore = useRatingStore();
   const usersStore = useUsersStore();

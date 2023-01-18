@@ -2,6 +2,7 @@
   // import { useUtcakStore } from "../store/utcakStore";
   import { usePartnerStore } from "../store/partnerStore";
   import router from "src/router";
+  import { onMounted } from "vue";
 
   // const utcakStore = useUtcakStore();
   const partnerStore = usePartnerStore();

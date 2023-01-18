@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useProductStore } from "../store/productStore";
   import { storeToRefs } from "pinia";
-  //import { DefineComponent } from "vue";
+  import { watch, onMounted } from "vue";
 
   const productStore = useProductStore();
   const { isLoading, selected } = storeToRefs(productStore);
@@ -12,8 +12,6 @@
 
   onMounted(() => {
     productStore.getAll();
-  });
-  onMounted(() => {
     productStore.getById();
   });
   // function actrating(): void {

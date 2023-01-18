@@ -2,6 +2,7 @@
   import { useProductStore } from "../store/productStore";
   import router from "src/router";
   // import { EditDialog } from "../components/EditDialog.vue";
+  import { onMounted } from "vue";
 
   const productStore = useProductStore();
 

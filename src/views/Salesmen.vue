@@ -1,15 +1,16 @@
 <script setup lang="ts">
   import { storeToRefs } from "pinia";
   import { useUsersStore } from "../store/usersStore";
+  import { watch, onMounted } from "vue";
+
   const usersStore = useUsersStore();
   const { isLoading } = storeToRefs(usersStore);
+
   watch(isLoading, () => {
     usersStore.getAll();
   });
   onMounted(() => {
     usersStore.getById();
-  });
-  onMounted(() => {
     usersStore.getAll();
   });
 </script>
