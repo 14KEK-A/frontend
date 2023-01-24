@@ -16,12 +16,20 @@ interface IPaginatedParams {
   sort: string;
   keyword?: string;
 }
+interface Iorderdetails {
+  product_id: string;
+  orders_id: string;
+  discount: boolean;
+  price: number;
+  quantity: number;
+  inCart: boolean;
+}
 
 interface IOrder {
   _id?: number; // PK
   ship_date?: Date;
   order_date?: Date;
-  //products: [orderdetails];
+  products?: (Iorderdetails | string)[];
 }
 interface IPagination {
   sortBy?: string;
@@ -33,10 +41,11 @@ interface IPagination {
 }
 
 interface IState {
-  dataN: Array<IOrder>; // store documents (records) after get method(s)
-  data: IOrder; // temporary object for create, edit and delete method
-  dataOld: IOrder; // temporary object for patch method (store data here before edit)
+  orders: Array<IOrder>; // store documents (records) after get method(s)
+  order: IOrder; // temporary object for create, edit and delete method
+  dataOld: IOrder; // temporary object for patch method (store order here before edit)
   selected: Array<IOrder>;
+  selectedOrderdetails: Array<Iorderdetails>;
   isLoading: boolean;
   pagination: IPagination;
 }
@@ -44,10 +53,11 @@ interface IState {
 export const useOrderStore = defineStore({
   id: "orderStore",
   state: (): IState => ({
-    dataN: [],
-    data: {},
+    orders: [],
+    order: {},
     dataOld: {},
     selected: [],
+    selectedOrderdetails: [],
     isLoading: false,
     pagination: {
       sortBy: "_id",
@@ -60,33 +70,33 @@ export const useOrderStore = defineStore({
   actions: {
     async getAll(): Promise<void> {
       Loading.show();
-      this.dataN = [];
+      this.orders = [];
       $axios
         .get("/orders")
         .then((res) => {
           Loading.hide();
           if (res && res.data) {
-            this.dataN = res.data;
+            this.orders = res.data;
           }
         })
         .catch((error) => {
           Loading.hide();
           Notify.create({
-            message: `Error (${error.response.data.status}) while get all: ${error.response.data.message}`,
+            message: `Error (${error.response.order.status}) while get all: ${error.response.order.message}`,
             color: "negative",
           });
         });
     },
     async getById(): Promise<void> {
-      if (this.data && this.data._id) {
+      if (this.order && this.order._id) {
         Loading.show();
         $axios
-          .get(`/orders/${this.data._id}`)
+          .get(`/orders/${this.order._id}`)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              this.data = res.data;
-              Object.assign(this.dataOld, this.data);
+              this.order = res.data;
+              Object.assign(this.dataOld, this.order);
             }
           })
           .catch((error) => {
@@ -99,10 +109,10 @@ export const useOrderStore = defineStore({
       }
     },
     async editById(): Promise<void> {
-      if (this.data && this.data._id) {
+      if (this.order && this.order._id) {
         const diff: any = {};
-        Object.keys(this.data).forEach((k, i) => {
-          const newValue = Object.values(this.data)[i];
+        Object.keys(this.order).forEach((k, i) => {
+          const newValue = Object.values(this.order)[i];
           const oldValue = Object.values(this.dataOld)[i];
           if (newValue != oldValue) diff[k] = newValue;
         });
@@ -115,11 +125,11 @@ export const useOrderStore = defineStore({
         }
         Loading.show();
         $axios
-          .patch(`/orders/${this.data._id}`, diff)
+          .patch(`/orders/${this.order._id}`, diff)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              this.data = {};
+              this.order = {};
               this.getAll();
               Notify.create({
                 message: `Document with id=${res.data._id} has been edited successfully!`,
@@ -131,7 +141,7 @@ export const useOrderStore = defineStore({
           .catch((error) => {
             Loading.hide();
             Notify.create({
-              message: `Error (${error.response.data.status}) while edit by id: ${error.response.data.message}`,
+              message: `Error (${error.response.order.status}) while edit by id: ${error.response.order.message}`,
               color: "negative",
             });
           });
@@ -145,8 +155,8 @@ export const useOrderStore = defineStore({
         )
         .then((res) => {
           if (res && res.data) {
-            this.dataN = res.data.orders;
-            // this.numberOfStreets = res.data.count; // ez ide majd nem kell
+            this.orders = res.data.orders;
+            // this.numberOfStreets = res.order.count; // ez ide majd nem kell
             this.pagination.rowsNumber = res.data.count;
           }
           Loading.hide();
@@ -154,7 +164,7 @@ export const useOrderStore = defineStore({
         .catch((error) => {
           Loading.hide();
           Notify.create({
-            message: `Error (${error.response.data.status}) while fetch paginated: ${error.response.data.message}`,
+            message: `Error (${error.response.order.status}) while fetch paginated: ${error.response.order.message}`,
             color: "negative",
           });
         });
@@ -177,7 +187,7 @@ export const useOrderStore = defineStore({
           .catch((error) => {
             Loading.hide();
             Notify.create({
-              message: `Error (${error.response.data.status}) while delete by id: ${error.response.data.message}`,
+              message: `Error (${error.response.order.status}) while delete by id: ${error.response.order.message}`,
               color: "negative",
             });
           });
@@ -185,16 +195,47 @@ export const useOrderStore = defineStore({
         else this.isLoading = false;
       }
     },
-    async create(): Promise<void> {
-      if (this.data) {
+    async removeFromCartById(): Promise<void> {
+      Loading.show();
+      this.isLoading = true;
+      if (this.selectedOrderdetails.length) {
+        const id_for_remove = this.selectedOrderdetails.pop()?.product_id;
+        await $axios.patch(`/orders/${id_for_remove}`).then(() => {
+          Loading.hide();
+          Notify.create({
+            message: `Cart item with id=${id_for_remove} has been deleted successfully!`,
+            color: "positive",
+          });
+        });
+      }
+    },
+    async addToCart(): Promise<void> {
+      if (this.order) {
         Loading.show();
-        // delete this.data.category;
+        // delete this.user.category;
+        $axios.patch("/orders", this.order).then((res) => {
+          Loading.hide();
+          if (res && res.data) {
+            this.order = {};
+            //this.getAll();
+            Notify.create({
+              message: `New Cart item with id=${res.data.product_id} has been added successfully!`,
+              color: "positive",
+            });
+          }
+        });
+      }
+    },
+    async create(): Promise<void> {
+      if (this.order) {
+        Loading.show();
+        // delete this.order.category;
         $axios
-          .post("/orders", this.data)
+          .post("/orders", this.order)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              // this.data = {};
+              // this.order = {};
               this.getAll();
               Notify.create({
                 message: `New document with id=${res.data._id} has been saved successfully!`,
@@ -206,7 +247,7 @@ export const useOrderStore = defineStore({
           .catch((error) => {
             Loading.hide();
             Notify.create({
-              message: `Error (${error.response.data.status}) while create: ${error.response.data.message}`,
+              message: `Error (${error.response.order.status}) while create: ${error.response.order.message}`,
               color: "negative",
             });
           });

@@ -8,7 +8,7 @@
   const orderStore = useOrderStore();
   const usersStore = useUsersStore();
 
-  const { isLoading, dataN, pagination, selected } = storeToRefs(orderStore);
+  const { isLoading, orders, pagination, selected } = storeToRefs(orderStore);
 
   const showEditDialog = ref(false);
 
@@ -21,12 +21,12 @@
   }
 
   function newRecord(): void {
-    orderStore.data = {};
+    orderStore.order = {};
     router.push("/neworder");
   }
 
   function editRecord(): void {
-    orderStore.data = selected.value[0];
+    orderStore.order = selected.value[0];
     orderStore.getById();
     router.push("/editorder");
     showEditDialog.value = true;
@@ -91,7 +91,7 @@
         dense
         :filter="pagination.filter"
         row-key="_id"
-        :rows="dataN"
+        :rows="orders"
         selection="multiple"
         title="Orders"
         wrap-cells
@@ -139,10 +139,10 @@
       <q-card class="q-pa-md" style="width: 60vw; min-width: 300px">
         <q-form class="q-mx-md" @reset="Reset()" @submit="Submit">
           <div class="row">
-            <div v-if="orderStore.data" class="col-12 q-gutter-md">
+            <div v-if="orderStore.order" class="col-12 q-gutter-md">
               <h4 class="text-center q-mt-lg q-mb-none">Edit document</h4>
               <!-- <q-select
-                v-model="orderStore.data.adosav"
+                v-model="orderStore.order.adosav"
                 clearable
                 emit-value
                 rounded outlined
@@ -152,23 +152,23 @@
                 option-value="_id"
                 :options="adosavokStore.dataN.sort((a, b) => a.sav!.localeCompare(b.sav!))"
               /> -->
-              <q-input v-model="orderStore.data._id" label="id:" outlined rounded type="text" />
+              <q-input v-model="orderStore.order._id" label="id:" outlined rounded type="text" />
               <q-date
-                v-model="orderStore.data.order_date"
+                v-model="orderStore.order.order_date"
                 label="Rendelés Dátuma:"
                 outlined
                 rounded
                 type="date"
               />
               <q-date
-                v-model="orderStore.data.ship_date"
+                v-model="orderStore.order.ship_date"
                 label="Szállítás dátuma:"
                 outlined
                 rounded
                 type="date"
               />
               <q-input
-                v-model="orderStore.data.Orders_id"
+                v-model="orderStore.order._id"
                 label="id_order:"
                 outlined
                 rounded
@@ -178,7 +178,7 @@
                 <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
                 <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />
               </div>
-              <!-- <p>Actual: {{ orderStore.data }}</p> -->
+              <!-- <p>Actual: {{ orderStore.order }}</p> -->
               <!-- <p>Old: {{ orderStore.dataOld }}</p> -->
               <!-- <p>Selected: {{ orderStore.selected }}</p> -->
             </div>

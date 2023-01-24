@@ -2,9 +2,13 @@
   import { useProductStore } from "../store/productStore";
   import { storeToRefs } from "pinia";
   import { watch, onMounted } from "vue";
-
+  import { useAppStore } from "../store/appStore";
+  import { reactive, toRaw } from "vue";
   const productStore = useProductStore();
+  const appStore = useAppStore;
+  const cart = reactive({ ...appStore.cart })
   const { isLoading, selected } = storeToRefs(productStore);
+  const save = () => appStore.setCart(toRaw(cart) as ICart);
 
   watch(isLoading, () => {
     productStore.getAll();
@@ -74,7 +78,7 @@
             </q-expansion-item>
           </q-card-actions>
           <q-card-actions>
-            <q-btn>Add to Cart</q-btn>
+            <q-btn @click="AddToCart">Add to Cart</q-btn>
           </q-card-actions>
         </q-card>
       </div>
