@@ -26,7 +26,7 @@ interface Iorderdetails {
 }
 
 interface IOrder {
-  _id?: number; // PK
+  _id?: string; // PK
   ship_date?: Date;
   order_date?: Date;
   products?: (Iorderdetails | string)[];

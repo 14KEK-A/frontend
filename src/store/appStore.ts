@@ -1,17 +1,19 @@
 import { defineStore } from "pinia";
-import { extend, LocalStorage } from "quasar";
+import { LocalStorage } from "quasar";
+
+export interface IShopItem {
+  name: string;
+  price: number;
+  quantity: number;
+}
 interface IState {
   showLoginDialog: boolean;
   email: string;
   password: string;
-  carts: Array<ICart>;
-  cart: ICart;
+  //carts: Array<ICart>;
+  // cart: Map<string, IShopItem>;
+  cart: Array<{ id: string; item: IShopItem }>;
   //ICart: (ICart | string)[];
-}
-interface ICart {
-  product_id?: string;
-  price?: number;
-  quantity?: number;
 }
 
 export const useAppStore = defineStore({
@@ -20,119 +22,44 @@ export const useAppStore = defineStore({
     showLoginDialog: false,
     email: "admin@admin.com",
     password: "admin",
-    carts: [],
-    cart: {},
+    //carts: [],
+    // cart: new Map<string, IShopItem>(),
+    cart: [],
   }),
   getters: {
     getShowLoginDialog(): boolean {
       return this.showLoginDialog;
-    },
-    getCart(): string {
-      return localStorage.get.cart(product_id);
-      //this.carts = carts ? JSON.parse(carts) : [];
-      //return this.carts;
     },
   },
   actions: {
     setShowLoginDialog(value: boolean): void {
       this.showLoginDialog = value;
     },
-
-    setCart(product_id: string, cart: string) {
-      LocalStorage.set(product_id, cart);
+    readCart(): void {
+      // this.cart = LocalStorage.getItem("shopingCart") as Map<string, IShopItem>;
+      // console.log();
+      //this.cart = localStorage.get("shopingCart");
       //this.carts = LocalStorage.getItem(product_id);
+      //this.cart.set("_id", { price: 500, quantity: 1 });
+      console.log("readCart: ", JSON.parse(LocalStorage.getItem("shopingCart") as string));
+
+      const savedCart: { id: string; item: IShopItem }[] | null = JSON.parse(
+        LocalStorage.getItem("shopingCart") as string
+      );
+      console.log("saved: ", savedCart);
+      if (savedCart == null) {
+        this.cart = [];
+      } else {
+        this.cart = savedCart;
+      }
+      console.log("card after saved: ", this.cart);
+    },
+    writeCart(): void {
+      // LocalStorage.set("shopingCart", this.cart);
+      //this.carts = LocalStorage.getItem(product_id);
+      // console.log(JSON.stringify(this.cart));
+      LocalStorage.set("shopingCart", JSON.stringify(this.cart));
+      console.log("writeCart: ", this.cart);
     },
   },
 });
-
-//  outside of a Vue file
-// import { LocalStorage } from 'quasar'
-
-// LocalStorage.set(key, value)
-// let value = LocalStorage.get.item(key)
-
-// this.$q.localStorage.set(key, value)
-// let value = this.$q.localStorage.get.item(key)
-
-// LocalStorage.set(key, value)
-
-//  inside of a Vue file
-// this.$q.localStorage.set(key, value)
-// this.$q.sessionStorage.set(key, value)
-// Retrieving Data
-// One item:
-
-//  outside of a Vue file
-// import { LocalStorage } from 'quasar'
-
-// let item = LocalStorage.get.item(key)
-
-//  inside of a Vue file
-// let item = this.$q.localStorage.get.item(key)
-
-// All items:
-
-//  outside of a Vue file
-// import { LocalStorage } from 'quasar'
-
-// let item = LocalStorage.get.all()
-
-//  inside of a Vue file
-// let item = this.$q.localStorage.get.all()
-// Iterating through Store
-// Getting length of store:
-
-//  outside of a Vue file
-// import { LocalStorage } from 'quasar'
-
-// let length = LocalStorage.get.length()
-
-//  inside of a Vue file
-// let length = this.$q.localStorage.get.length()
-// Getting item at index:
-
-//  outside of a Vue file
-// import { LocalStorage } from 'quasar'
-
-// let item = LocalStorage.get.index(index)
-
-//  inside of a Vue file
-// let item = this.$q.localStorage.get.index(index)
-// Now you know how to loop through the store.
-
-// Removing Data
-// One item:
-
-//  outside of a Vue file
-// import { LocalStorage } from 'quasar'
-
-// LocalStorage.remove(key)
-
-//  inside of a Vue file
-// this.$q.localStorage.remove(key)
-// All items (clear the store):
-
-//  outside of a Vue file
-// import { LocalStorage } from 'quasar'
-
-// LocalStorage.clear()
-
-//  inside of a Vue file
-// this.$q.localStorage.clear()
-// Is Store Empty?
-//  outside of a Vue file
-// import { LocalStorage } from 'quasar'
-
-// (boolean) LocalStorage.isEmpty()
-
-//  inside of a Vue file
-// (boolean) this.$q.localStorage.isEmpty()
-
-// Is Key in Store?
-//  outside of a Vue file
-// import { LocalStorage } from 'quasar'
-
-// (boolean) LocalStorage.has(key)
-
-//  inside of a Vue file
-// (boolean) this.$q.localStorage.has(key)

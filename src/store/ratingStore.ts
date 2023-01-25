@@ -11,7 +11,7 @@ Notify.setDefaults({
 });
 
 interface IRating {
-  _id?: number; // PK
+  _id?: string; // PK
   star?: number;
   comment?: string;
   users_id?: {

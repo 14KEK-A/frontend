@@ -17,8 +17,8 @@ interface IPaginatedParams {
   keyword?: string;
 }
 
-interface IProduct {
-  _id?: number; // PK
+export interface IProduct {
+  _id?: string;
   name?: string;
   price?: number;
   type?: string;

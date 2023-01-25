@@ -1,20 +1,57 @@
 <script setup lang="ts">
   import { useProductStore } from "../store/productStore";
   import { storeToRefs } from "pinia";
-  import { watch, onMounted } from "vue";
+  import { onMounted, watch } from "vue";
   import { useAppStore } from "../store/appStore";
-  import { reactive, toRaw } from "vue";
+  import { IProduct } from "../store/productStore";
   const productStore = useProductStore();
-  const appStore = useAppStore;
-  const cart = reactive({ ...appStore.cart })
-  const { isLoading, selected } = storeToRefs(productStore);
-  const save = () => appStore.setCart(toRaw(cart) as ICart);
+  const appStore = useAppStore();
 
+  const { isLoading, selected } = storeToRefs(productStore);
+  //const { writeCart } = storeToRefs(appStore);
+
+  function AddToCart(product: IProduct) {
+    // id: string, price: number, name: string
+    // console.log("AddToCart product: ", product);
+    // productStore.product._id = id;
+    if (
+      appStore.cart.some(({ id: itemId }) => {
+        if (itemId == product._id) {
+          return true;
+        }
+        return false;
+      })
+    ) {
+      appStore.cart.some(({ id: itemId, item }) => {
+        if (itemId == product._id) {
+          item.quantity++;
+          return true;
+        }
+        return false;
+      });
+    } else {
+      appStore.cart.push({
+        id: product._id as string,
+        item: { name: product.name as string, price: product.price as number, quantity: 1 },
+      });
+    }
+
+    appStore.writeCart();
+    // appStore.cart.
+
+    // appStore.cart.set(id, {
+    //   price: productStore.product.price,
+    //   quantity: 1,
+    // });
+    // console.log(appStore.cart);
+  }
   watch(isLoading, () => {
     productStore.getAll();
   });
 
   onMounted(() => {
+    // appStore.readCart();
+    // console.log(appStore.cart);
     productStore.getAll();
     productStore.getById();
   });
@@ -78,7 +115,7 @@
             </q-expansion-item>
           </q-card-actions>
           <q-card-actions>
-            <q-btn @click="AddToCart">Add to Cart</q-btn>
+            <q-btn @click.prevent="AddToCart(product)">Add to Cart</q-btn>
           </q-card-actions>
         </q-card>
       </div>

@@ -1,36 +1,62 @@
 <script setup lang="ts">
   import router from "src/router";
   import { useUsersStore } from "./store/usersStore";
-  import { ref } from "vue";
-  // import { useAppStore } from "../src/store/appStore";
+  import { ref, onMounted, computed } from "vue";
+  import { IShopItem, useAppStore } from "../src/store/appStore";
+  import { useProductStore } from "../src/store/productStore";
   //import AccountView from "./views/AccountView.vue";
+
+  import { matAdd, matRemove } from "@quasar/extras/material-icons";
 
   const leftDrawer = ref<boolean>(true);
   const usersStore = useUsersStore();
-  //const appStore = useAppStore();
+  const appStore = useAppStore();
+  const productStore = useProductStore();
 
-  // const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
+  const totalPrice = computed(() => {
+    // appStore.cart.reduce((accumulator, { item }) => {
+    //   return accumulator + item.price;
+    // }, 0)
+    let sum = 0;
+    appStore.cart.forEach(({ _, item }) => (sum += item.price * item.quantity));
+    return sum;
+  });
 
-  // interface IReactiveData {
-  //   email: string;
-  //   password: string;
-  // }
+  //const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
 
-  // const state = reactive<IReactiveData>({
-  //   email: "student005@jedlik.eu",
-  //   password: "test5",
+  // onMounted(() => {
+  //   usersStore.autoLogin();
   // });
 
-  // function Submit() {
-  //   if (!anyLoggedUser.value) {
-  //     usersStore.loginUser({
-  //       email: state.email,
-  //       password: state.password,
-  //     });
-  //   } else {
-  //     usersStore.logOut();
-  //   }
-  // }
+  function addOneToQuantity(cartItemId: string) {
+    appStore.cart.some(({ id, item }) => {
+      if (id == cartItemId) {
+        item.quantity++;
+      }
+    });
+  }
+
+  function removeOneFromQuantity(cartItemId: string) {
+    appStore.cart.some(({ id, item }) => {
+      if (id == cartItemId) {
+        if (item.quantity == 1) {
+          appStore.cart = appStore.cart.filter((cartItem) => cartItem.id != id);
+        } else {
+          item.quantity--;
+        }
+      }
+    });
+  }
+
+  window.addEventListener(
+    "beforeunload",
+    () => {
+      if (usersStore.loggedUser) {
+        usersStore.closeApp();
+      }
+    },
+    false
+  );
   function newRegister(): void {
     usersStore.user = {};
     router.push("/newregister");
@@ -66,6 +92,14 @@
       separator: false,
     },
     {
+      icon: "mdi-account",
+      text: "Cart",
+      name: "Cart",
+      route: "/CartView",
+      disabled: false,
+      separator: false,
+    },
+    {
       icon: "mdi-information",
       text: "about",
       name: "about",
@@ -83,12 +117,12 @@
     // },
   ]);
   /*
-  function toggleLanguage() {
-    locale.value = locale.value == "hu" ? "en" : "hu";
-    menuItems.value.forEach((e) => {
-      if (e.name != "") e.text = t(e.name);
-    });
-  }*/
+    function toggleLanguage() {
+      locale.value = locale.value == "hu" ? "en" : "hu";
+      menuItems.value.forEach((e) => {
+        if (e.name != "") e.text = t(e.name);
+      });
+    }*/
   // const links = ref([
   //   {
   //     icon: "mdi-fruit-pineapple",
@@ -99,6 +133,10 @@
   //     separator: false,
   //   },
   // ]);
+
+  onMounted(() => {
+    appStore.readCart();
+  });
 </script>
 
 <template>
@@ -154,15 +192,39 @@
             no-caps
             @click="newRegister"
           ></q-btn>
-          <q-btn
+          <!-- <q-btn
             class="q-ml-sm q-px-md pull-right"
             label="Cart"
             no-caps
             no-wrap
             outline
             to="/home"
-          ></q-btn>
-          <!-- <q-btn flat icon="mdi-cart" @click="$q.dark.toggle" /> -->
+          ></q-btn> -->
+          <q-btn-dropdown
+            class="q-ml-sm q-px-md pull-right"
+            flat
+            icon="mdi-cart"
+            label="Cart"
+            no-caps
+            no-wrap
+            outline
+          >
+            <q-list>
+              <q-item v-for="{ id, item } in appStore.cart" :key="id" icon="">
+                <q-item-section>{{ item.name }} {{ item.price }}</q-item-section>
+                <q-item-section side>
+                  <q-btn dense flat :icon="matAdd" @click="addOneToQuantity(id)" />
+                </q-item-section>
+                <q-item-section side>
+                  <q-btn dense flat :icon="matRemove" @click="removeOneFromQuantity(id)" />
+                </q-item-section>
+                <q-item-section side>{{ item.quantity }} db</q-item-section>
+              </q-item>
+              <q-item>
+                <q-item-section>Total price: {{ totalPrice }}</q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
           <q-btn flat icon="mdi-theme-light-dark" @click="$q.dark.toggle" />
           <q-btn dense flat icon="mdi-menu" round @click="leftDrawer = !leftDrawer" />
           <q-space />
@@ -205,6 +267,12 @@
                 <q-icon name="mdi-table" />
               </q-item-section>
               <q-item-section>Our salesmen</q-item-section>
+            </q-item>
+            <q-item clickable :to="{ name: 'Cart' }">
+              <q-item-section avatar>
+                <q-icon name="mdi-table" />
+              </q-item-section>
+              <q-item-section>Cart</q-item-section>
             </q-item>
 
             <q-item

@@ -24,6 +24,7 @@ import QTableViewUser from "./views/QTableViewUser.vue";
 import NewRegister from "./views/RegisterView.vue";
 import Salesmen from "./views/Salesmen.vue";
 import UserEditUser from "./views/EditUserforUser.vue";
+import CartView from "./views/CartView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -150,6 +151,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/useredituser",
     name: "useredituser",
     component: UserEditUser,
+  },
+  {
+    path: "/CartView",
+    name: "CartView",
+    component: CartView,
   },
 ];
 const router = createRouter({

@@ -11,7 +11,7 @@ Notify.setDefaults({
 });
 
 interface IPartner {
-  _id?: number; // PK
+  _id?: string; // PK
   name?: string;
   address?: string;
   email?: string;
