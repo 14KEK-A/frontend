@@ -258,11 +258,11 @@ export const useUsersStore = defineStore({
           });
       }
     },
-    async closeApp(): Promise<void> {
-      $axios.post("auth/closeapp").then(() => {
-        this.loggedUser = null;
-      });
-    },
+    // async closeApp(): Promise<void> {
+    //   $axios.post("auth/closeapp").then(() => {
+    //     this.loggedUser = null;
+    //   });
+    // },
     async deleteById(): Promise<void> {
       Loading.show();
       this.isLoading = true;

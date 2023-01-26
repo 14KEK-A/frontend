@@ -3,7 +3,7 @@
   import { useUsersStore } from "./store/usersStore";
   import { ref, onMounted, computed } from "vue";
   import { IShopItem, useAppStore } from "../src/store/appStore";
-  import { useProductStore } from "../src/store/productStore";
+  //import { useProductStore } from "../src/store/productStore";
   //import AccountView from "./views/AccountView.vue";
 
   import { matAdd, matRemove } from "@quasar/extras/material-icons";
@@ -11,7 +11,7 @@
   const leftDrawer = ref<boolean>(true);
   const usersStore = useUsersStore();
   const appStore = useAppStore();
-  const productStore = useProductStore();
+  //const productStore = useProductStore();
 
   const totalPrice = computed(() => {
     // appStore.cart.reduce((accumulator, { item }) => {
@@ -48,15 +48,15 @@
     });
   }
 
-  window.addEventListener(
-    "beforeunload",
-    () => {
-      if (usersStore.loggedUser) {
-        usersStore.closeApp();
-      }
-    },
-    false
-  );
+  // window.addEventListener(
+  //   "beforeunload",
+  //   () => {
+  //     if (usersStore.loggedUser) {
+  //       usersStore.closeApp();
+  //     }
+  //   },
+  //   false
+  // );
   function newRegister(): void {
     usersStore.user = {};
     router.push("/newregister");
@@ -72,6 +72,14 @@
   function LOGOUT(): void {
     usersStore.user = {};
     router.push("/account");
+  }
+  function Checkout(): void {
+    usersStore.user = {};
+    router.push("/CartView");
+  }
+  function editRecord(): void {
+    usersStore.getLoggedUser;
+    router.push("/useredituser");
   }
 
   const menuItems = ref([
@@ -92,8 +100,8 @@
       separator: false,
     },
     {
-      icon: "mdi-account",
-      text: "Cart",
+      icon: "shopping_cart_checkout",
+      text: "Shopping Cart Checkout",
       name: "Cart",
       route: "/CartView",
       disabled: false,
@@ -107,33 +115,7 @@
       disabled: false,
       separator: false,
     },
-    // {
-    //   icon: "mdi-lifebuoy",
-    //   text: "Products",
-    //   name: "allproducts",
-    //   route: "/allprducts",
-    //   disabled: false,
-    //   separator: true,
-    // },
   ]);
-  /*
-    function toggleLanguage() {
-      locale.value = locale.value == "hu" ? "en" : "hu";
-      menuItems.value.forEach((e) => {
-        if (e.name != "") e.text = t(e.name);
-      });
-    }*/
-  // const links = ref([
-  //   {
-  //     icon: "mdi-fruit-pineapple",
-  //     text: "Pinia",
-  //     name: "",
-  //     link: "https://pinia.vuejs.org/introduction.html",
-  //     disabled: false,
-  //     separator: false,
-  //   },
-  // ]);
-
   onMounted(() => {
     appStore.readCart();
   });
@@ -166,7 +148,7 @@
             no-wrap
             @click="about"
           ></q-btn>
-          <q-btn
+          <!-- <q-btn
             v-if="usersStore.loggedUser"
             class="q-ml-sm q-px-md pull-right"
             flat
@@ -174,7 +156,6 @@
             no-caps
             @click="LOGOUT"
           ></q-btn>
-          <!-- (appStore.showLoginDialog = true) -->
           <q-btn
             v-else
             v-show="usersStore.loggedUser == null"
@@ -191,14 +172,6 @@
             label="Register"
             no-caps
             @click="newRegister"
-          ></q-btn>
-          <!-- <q-btn
-            class="q-ml-sm q-px-md pull-right"
-            label="Cart"
-            no-caps
-            no-wrap
-            outline
-            to="/home"
           ></q-btn> -->
           <q-btn-dropdown
             class="q-ml-sm q-px-md pull-right"
@@ -211,19 +184,85 @@
           >
             <q-list>
               <q-item v-for="{ id, item } in appStore.cart" :key="id" icon="">
-                <q-item-section>{{ item.name }} {{ item.price }}</q-item-section>
-                <q-item-section side>
-                  <q-btn dense flat :icon="matAdd" @click="addOneToQuantity(id)" />
-                </q-item-section>
+                <q-item-section>{{ item.name }} {{ item.price }} Ft</q-item-section>
                 <q-item-section side>
                   <q-btn dense flat :icon="matRemove" @click="removeOneFromQuantity(id)" />
                 </q-item-section>
+                <q-item-section side>
+                  <q-btn dense flat :icon="matAdd" @click="addOneToQuantity(id)" />
+                </q-item-section>
+                <!-- <q-item-section side>
+                  <q-btn dense flat :icon="matRemove" @click="removeOneFromQuantity(id)" />
+                </q-item-section> -->
                 <q-item-section side>{{ item.quantity }} db</q-item-section>
               </q-item>
               <q-item>
-                <q-item-section>Total price: {{ totalPrice }}</q-item-section>
+                <q-item-section>Total price: {{ totalPrice }} Ft</q-item-section>
+                <q-btn color="primary" @click="Checkout">Checkout</q-btn>
               </q-item>
             </q-list>
+          </q-btn-dropdown>
+
+          <q-btn-dropdown
+            class="q-ml-sm column q-px-md pull-right"
+            flat
+            label="Account"
+            no-caps
+            no-wrap
+            outline
+          >
+            <div class="column no-wrap q-pa-md">
+              <div class="column">
+                <div class="text-h6 q-mb-md">
+                  <q-btn
+                    v-if="usersStore.loggedUser"
+                    class="q-my-md"
+                    color="primary"
+                    no-caps
+                    @click="editRecord"
+                  >
+                    Edit User
+                  </q-btn>
+                </div>
+              </div>
+
+              <div class="column items-center">
+                <q-avatar size="72px">
+                  <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+                </q-avatar>
+
+                <div class="text-subtitle1 q-mt-md q-mb-xs">
+                  {{ usersStore.getLoggedUser?.user_name }}
+                </div>
+
+                <q-btn
+                  v-if="usersStore.loggedUser"
+                  class="q-ml-sm q-px-md pull-right"
+                  flat
+                  label="Logout"
+                  no-caps
+                  @click="LOGOUT"
+                ></q-btn>
+                <!-- (appStore.showLoginDialog = true) -->
+                <q-btn
+                  v-else
+                  v-show="usersStore.loggedUser == null"
+                  class="q-ml-sm q-px-md pull-right"
+                  flat
+                  label="Login"
+                  no-caps
+                  @click="LOGIN"
+                ></q-btn>
+                <q-btn
+                  v-show="usersStore.loggedUser == null"
+                  class="q-ml-sm q-px-md pull-right"
+                  flat
+                  label="Register"
+                  no-caps
+                  @click="newRegister"
+                ></q-btn>
+              </div>
+            </div>
           </q-btn-dropdown>
           <q-btn flat icon="mdi-theme-light-dark" @click="$q.dark.toggle" />
           <q-btn dense flat icon="mdi-menu" round @click="leftDrawer = !leftDrawer" />
@@ -238,6 +277,7 @@
         :breakpoint="500"
         :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
         show-if-above
+        style="margin-top: 64px"
         :width="200"
       >
         <q-scroll-area class="fit">
@@ -268,13 +308,6 @@
               </q-item-section>
               <q-item-section>Our salesmen</q-item-section>
             </q-item>
-            <q-item clickable :to="{ name: 'Cart' }">
-              <q-item-section avatar>
-                <q-icon name="mdi-table" />
-              </q-item-section>
-              <q-item-section>Cart</q-item-section>
-            </q-item>
-
             <q-item
               v-show="usersStore.loggedUser?.role_name == 'admin'"
               clickable
@@ -287,7 +320,10 @@
             </q-item>
 
             <q-item
-              v-show="usersStore.loggedUser?.role_name == 'admin'"
+              v-show="
+                usersStore.loggedUser?.role_name == 'admin' ||
+                usersStore.loggedUser?.role_name == 'salesman'
+              "
               clickable
               :to="{ name: 'qtablepartner' }"
             >

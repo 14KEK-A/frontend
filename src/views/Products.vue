@@ -71,18 +71,6 @@
           </q-badge>
         </div>
       </q-card-section>
-      <!-- <q-card-section>
-        <div v-for="productStore." :key="">
-          <div v-if="!['_id', 'name', 'price', 'type']"></div>
-        </div>
-      </q-card-section>
-      <div style="max-height: 35vh; overflow: hidden">
-        <q-img
-          class="pic"
-          :src="productStore.product.picture"
-          style="max-widht: 100%; height: auto; opacity: 0.6"
-        ></q-img>
-      </div> -->
       <div class="q-pa-md row q-gutter-sm">
         <q-card
           v-for="product in productStore.products"
