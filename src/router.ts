@@ -2,7 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { useUsersStore } from "./store/usersStore";
 import AboutView from "./views/AboutView.vue";
 import AccountView from "./views/AccountView.vue";
-import GridView from "./views/GridView.vue";
+//import GridView from "./views/GridView.vue";
 import StartPageView from "./views/StartPageView.vue";
 import HelpView from "./views/HelpView.vue";
 import QTableViewPartner from "./views/QTableViewPartner.vue";
@@ -102,11 +102,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "qtablerating",
     component: QTableViewRating,
   },
-  {
-    path: "/grid",
-    name: "grid",
-    component: GridView,
-  },
+  // {
+  //   path: "/grid",
+  //   name: "grid",
+  //   component: GridView,
+  // },
   {
     path: "/about",
     name: "about",
@@ -159,7 +159,7 @@ const routes: Array<RouteRecordRaw> = [
   },
 ];
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 

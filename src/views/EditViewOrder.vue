@@ -1,7 +1,7 @@
 <script setup lang="ts">
   // import { useUtcakStore } from "../store/utcakStore";
   import { useOrderStore } from "../store/orderStore";
-  import router from "src/router";
+  import router from "@src/router";
   import { onMounted } from "vue";
 
   // const utcakStore = useUtcakStore();

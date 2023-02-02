@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "esnext",
     "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,
@@ -12,14 +11,16 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "outDir": "dist",
     "lib": ["esnext", "dom"],
-    "types": ["node", "vite/client", "vitest", "vitest/globals"],
+    "types": ["node", "vite/client", "vitest", "vitest/globals", "cypress"],
+    "baseUrl": ".",
     "paths": {
-      "src/*": ["src/*"],
-      "/src/*": ["src/*"],
-      "~/*": ["src/*"]
+      "@src/*": ["src/*"]
+      //   "/src/*": ["src/*"],
+      //   "~/*": ["src/*"]
     }
   },
-  "exclude": ["dist", "node_modules", "cypress"]
+  "include": ["src", "vite.config.ts", "cypress"]
 }

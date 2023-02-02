@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <q-page>
+  <q-page style="margin-top: 64px">
     <q-parallax src="https://images.alphacoders.com/774/thumb-1920-774079.jpg">
-      <h1 class="text-grey">4PET WebShop</h1>
+      <h5 class="text-h3 text-center">4PET WebShop</h5>
       <div class="column flex-center">
         <h2></h2>
         <div>
@@ -17,10 +17,10 @@
 </template>
 
 <style scoped>
-  h2 {
-    color: gray;
-    font-size: 2vw;
+  h5 {
+    color: #26a69a;
     margin: auto;
+    /* text-shadow: -1px -1px 0 #26a69a, 1px -1px 0 #26a69a, -1px 1px 0 #26a69a, 1px 1px 0 #26a69a; */
   }
   div {
     font-size: medium;

@@ -7,7 +7,7 @@
   const productStore = useProductStore();
   const appStore = useAppStore();
 
-  const { isLoading, selected } = storeToRefs(productStore);
+  const { isLoading, pagination, selected } = storeToRefs(productStore);
   //const { writeCart } = storeToRefs(appStore);
 
   function AddToCart(product: IProduct) {
@@ -48,7 +48,9 @@
   watch(isLoading, () => {
     productStore.getAll();
   });
-
+  // function filterChanged(): void {
+  //   selected.value = [];
+  // }
   onMounted(() => {
     // appStore.readCart();
     // console.log(appStore.cart);
@@ -60,9 +62,13 @@
   // }
 </script>
 <template>
-  <q-page v-model:selected="selected" :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-4'" padding>
-    <!-- :style="{ 'background-image': `url(${book?.picture})` }"
-			style="height: 90vh; background-repeat: no-repeat; background-color: opacity: 0.1;" -->
+  <q-page
+    v-model:selected="selected"
+    :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-4'"
+    padding
+    style="margin-top: 64px"
+  >
+    <div :filter="pagination.filter"></div>
     <q-card class="card" q-ml-sm q-px-md>
       <q-card-section>
         <div class="row">

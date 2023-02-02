@@ -61,5 +61,12 @@ export const useAppStore = defineStore({
       LocalStorage.set("shopingCart", JSON.stringify(this.cart));
       console.log("writeCart: ", this.cart);
     },
+    deleteCart(): void {
+      // LocalStorage.set("shopingCart", this.cart);
+      //this.carts = LocalStorage.getItem(product_id);
+      // console.log(JSON.stringify(this.cart));
+      //LocalStorage.remove(this.cart);
+      //console.log("writeCart: ", this.cart);
+    },
   },
 });

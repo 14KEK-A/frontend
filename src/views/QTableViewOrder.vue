@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useOrderStore } from "../store/orderStore";
   import { storeToRefs } from "pinia";
-  import router from "src/router";
+  import router from "@src/router";
   import { useUsersStore } from "../store/usersStore";
   import { onMounted, ref, watch } from "vue";
 
@@ -81,7 +81,7 @@
 </script>
 
 <template>
-  <q-page>
+  <q-page style="margin-top: 64px">
     <div class="q-pa-md">
       <q-table
         v-model:pagination="pagination"
@@ -155,14 +155,14 @@
               <q-input v-model="orderStore.order._id" label="id:" outlined rounded type="text" />
               <q-date
                 v-model="orderStore.order.order_date"
-                label="Rendelés Dátuma:"
+                label="Order date:"
                 outlined
                 rounded
                 type="date"
               />
               <q-date
                 v-model="orderStore.order.ship_date"
-                label="Szállítás dátuma:"
+                label="Ship date:"
                 outlined
                 rounded
                 type="date"

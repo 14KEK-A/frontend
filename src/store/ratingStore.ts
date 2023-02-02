@@ -1,7 +1,7 @@
 import $axios from "./axios.instance";
 import { defineStore } from "pinia";
 import { Notify, Loading } from "quasar";
-import router from "src/router";
+import router from "@src/router";
 
 Notify.setDefaults({
   position: "bottom",
@@ -43,6 +43,22 @@ interface IState {
   dataOld: IRating; // temporary object for patch method (store rating here before edit)
   selected: Array<IRating>;
   isLoading: boolean;
+  pagination: IPagination;
+}
+interface IPaginatedParams {
+  offset: number;
+  limit: string;
+  order: string;
+  sort: string;
+  keyword?: string;
+}
+interface IPagination {
+  sortBy?: string;
+  descending?: false;
+  page?: number;
+  rowsPerPage?: number;
+  rowsNumber?: number;
+  filter?: string;
 }
 
 export const useRatingStore = defineStore({
@@ -53,6 +69,12 @@ export const useRatingStore = defineStore({
     dataOld: {},
     selected: [],
     isLoading: false,
+    pagination: {
+      sortBy: "Name",
+      descending: false,
+      rowsPerPage: 10,
+      filter: "",
+    },
   }),
   getters: {
     getrating(): null | IRating {
@@ -113,7 +135,8 @@ export const useRatingStore = defineStore({
             message: "Nothing changed!",
             color: "negative",
           });
-          process.exit(0);
+          // process.exit(0);
+          return;
         }
         Loading.show();
         $axios
@@ -138,6 +161,28 @@ export const useRatingStore = defineStore({
             });
           });
       }
+    },
+    async fetchPaginatedRatings(params: IPaginatedParams): Promise<void> {
+      Loading.show();
+      $axios
+        .get(
+          `/ratings/${params.offset}/${params.limit}/${params.order}/${params.sort}/${params.keyword}`
+        )
+        .then((res) => {
+          if (res && res.data) {
+            this.ratings = res.data.orders;
+            // this.numberOfStreets = res.product.count; // ez ide majd nem kell
+            this.pagination.rowsNumber = res.data.count;
+          }
+          Loading.hide();
+        })
+        .catch((error) => {
+          Loading.hide();
+          Notify.create({
+            message: `Error (${error.response.product.status}) while fetch paginated: ${error.response.product.message}`,
+            color: "negative",
+          });
+        });
     },
     async deleteById(): Promise<void> {
       Loading.show();

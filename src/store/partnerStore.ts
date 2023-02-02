@@ -1,7 +1,7 @@
 import $axios from "./axios.instance";
 import { defineStore } from "pinia";
 import { Notify, Loading } from "quasar";
-import router from "src/router";
+import router from "@src/router";
 
 Notify.setDefaults({
   position: "bottom",
@@ -19,53 +19,75 @@ interface IPartner {
 }
 
 interface IState {
-  dataN: Array<IPartner>; // store documents (records) after get method(s)
-  data: IPartner; // temporary object for create, edit and delete method
-  dataOld: IPartner; // temporary object for patch method (store data here before edit)
+  partners: Array<IPartner>; // store documents (records) after get method(s)
+  partner: IPartner; // temporary object for create, edit and delete method
+  dataOld: IPartner; // temporary object for patch method (store partner here before edit)
   selected: Array<IPartner>;
   isLoading: boolean;
+  pagination: IPagination;
+}
+interface IPagination {
+  sortBy?: string;
+  descending?: false;
+  page?: number;
+  rowsPerPage?: number;
+  rowsNumber?: number;
+  filter?: string;
+}
+interface IPaginatedParams {
+  offset: number;
+  limit: string;
+  order: string;
+  sort: string;
+  keyword?: string;
 }
 
 export const usePartnerStore = defineStore({
   id: "partnerStore",
   state: (): IState => ({
-    dataN: [],
-    data: {},
+    partners: [],
+    partner: {},
     dataOld: {},
     selected: [],
     isLoading: false,
+    pagination: {
+      sortBy: "Name",
+      descending: false,
+      rowsPerPage: 10,
+      filter: "",
+    },
   }),
   getters: {},
   actions: {
     async getAll(): Promise<void> {
       Loading.show();
-      this.dataN = [];
+      this.partners = [];
       $axios
         .get("partners")
         .then((res) => {
           Loading.hide();
           if (res && res.data) {
-            this.dataN = res.data;
+            this.partners = res.data;
           }
         })
         .catch((error) => {
           Loading.hide();
           Notify.create({
-            message: `Error (${error.response.data.status}) while get all: ${error.response.data.message}`,
+            message: `Error (${error.response.partner.status}) while get all: ${error.response.partner.message}`,
             color: "negative",
           });
         });
     },
     async getById(): Promise<void> {
-      if (this.data && this.data._id) {
+      if (this.partner && this.partner._id) {
         Loading.show();
         $axios
-          .get(`/partners/${this.data._id}`)
+          .get(`/partners/${this.partner._id}`)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              this.data = res.data;
-              Object.assign(this.dataOld, this.data);
+              this.partner = res.data;
+              Object.assign(this.dataOld, this.partner);
             }
           })
           .catch((error) => {
@@ -78,10 +100,10 @@ export const usePartnerStore = defineStore({
       }
     },
     async editById(): Promise<void> {
-      if (this.data && this.data._id) {
+      if (this.partner && this.partner._id) {
         const diff: any = {};
-        Object.keys(this.data).forEach((k, i) => {
-          const newValue = Object.values(this.data)[i];
+        Object.keys(this.partner).forEach((k, i) => {
+          const newValue = Object.values(this.partner)[i];
           const oldValue = Object.values(this.dataOld)[i];
           if (newValue != oldValue) diff[k] = newValue;
         });
@@ -90,15 +112,16 @@ export const usePartnerStore = defineStore({
             message: "Nothing changed!",
             color: "negative",
           });
-          process.exit(0);
+          // process.exit(0);
+          return;
         }
         Loading.show();
         $axios
-          .patch(`/partners/${this.data._id}`, diff)
+          .patch(`/partners/${this.partner._id}`, diff)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              this.data = {};
+              this.partner = {};
               this.getAll();
               Notify.create({
                 message: `Document with id=${res.data._id} has been edited successfully!`,
@@ -110,11 +133,32 @@ export const usePartnerStore = defineStore({
           .catch((error) => {
             Loading.hide();
             Notify.create({
-              message: `Error (${error.response.data.status}) while edit by id: ${error.response.data.message}`,
+              message: `Error (${error.response.partner.status}) while edit by id: ${error.response.partner.message}`,
               color: "negative",
             });
           });
       }
+    },
+    async fetchPaginatedPartners(params: IPaginatedParams): Promise<void> {
+      Loading.show();
+      $axios
+        .get(
+          `/partners/${params.offset}/${params.limit}/${params.order}/${params.sort}/${params.keyword}`
+        )
+        .then((res) => {
+          if (res && res.data) {
+            this.partners = res.data.orders;
+            this.pagination.rowsNumber = res.data.count;
+          }
+          Loading.hide();
+        })
+        .catch((error) => {
+          Loading.hide();
+          Notify.create({
+            message: `Error (${error.response.partner.status}) while fetch paginated: ${error.response.partner.message}`,
+            color: "negative",
+          });
+        });
     },
     async deleteById(): Promise<void> {
       Loading.show();
@@ -133,7 +177,7 @@ export const usePartnerStore = defineStore({
           .catch((error) => {
             Loading.hide();
             Notify.create({
-              message: `Error (${error.response.data.status}) while delete by id: ${error.response.data.message}`,
+              message: `Error (${error.response.partner.status}) while delete by id: ${error.response.partner.message}`,
               color: "negative",
             });
           });
@@ -142,15 +186,15 @@ export const usePartnerStore = defineStore({
       }
     },
     async create(): Promise<void> {
-      if (this.data) {
+      if (this.partner) {
         Loading.show();
-        // delete this.data.category;
+        // delete this.partner.category;
         $axios
-          .post("/partners", this.data)
+          .post("/partners", this.partner)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              // this.data = {};
+              // this.partner = {};
               this.getAll();
               Notify.create({
                 message: `New document with id=${res.data._id} has been saved successfully!`,
@@ -162,7 +206,7 @@ export const usePartnerStore = defineStore({
           .catch((error) => {
             Loading.hide();
             Notify.create({
-              message: `Error (${error.response.data.status}) while create: ${error.response.data.message}`,
+              message: `Error (${error.response.partner.status}) while create: ${error.response.partner.message}`,
               color: "negative",
             });
           });

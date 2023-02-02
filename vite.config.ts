@@ -13,23 +13,20 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      src: resolve(__dirname, "src"),
-      "~": resolve(__dirname, "src"),
+      "@src": resolve(__dirname, "src"),
+      // "~": resolve(__dirname, "src"),
     },
-  },
-  define: {
-    "process.env": {},
   },
 
   // https://github.com/vitest-dev/vitest
-  test: {
-    include: ["test/**/*.test.ts"],
-    globals: true,
-    environment: "jsdom",
-    deps: {
-      inline: ["@vue", "@vueuse", "vue-demi"],
-    },
-  },
+  // test: {
+  //   include: ["./test/**/*.test.ts"],
+  //   globals: true,
+  //   environment: "jsdom",
+  //   deps: {
+  //     inline: ["@vue", "@vueuse", "vue-demi"],
+  //   },
+  // },
 
   build: {
     // reportCompressedSize: true,

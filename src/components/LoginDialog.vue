@@ -1,27 +1,7 @@
 <script setup lang="ts">
   import { useAppStore } from "../store/appStore";
-  import { useUsersStore } from "src/store/usersStore";
+  import { useUsersStore } from "@src/store/usersStore";
   import { computed } from "vue";
-  // interface IProps {
-  //   email?: string;
-  //   password?: string;
-  // }
-  // const props = withDefaults(defineProps<IProps>(), {
-  //   email: "student001@jedlik.eu",
-  //   password: "student001",
-  // });
-  // const emit = defineEmits<{
-  //   // eslint-disable-next-line no-unused-vars
-  //   (e: "close-login-dialog"): void;
-  // }>();
-  // interface IReactiveData {
-  //   email: string;
-  //   password: string;
-  // }
-  // const r = reactive<IReactiveData>({
-  //   email: props.email,
-  //   password: props.password,
-  // });
   const usersStore = useUsersStore();
   const appStore = useAppStore();
   const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));

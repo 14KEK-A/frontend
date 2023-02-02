@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useProductStore } from "../store/productStore";
-  import router from "src/router";
+  import router from "@src/router";
   // import { EditDialog } from "../components/EditDialog.vue";
   import { onMounted } from "vue";
 

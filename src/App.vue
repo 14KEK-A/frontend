@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import router from "src/router";
+  import router from "@src/router";
   import { useUsersStore } from "./store/usersStore";
   import { ref, onMounted, computed } from "vue";
-  import { IShopItem, useAppStore } from "../src/store/appStore";
+  import { useAppStore } from "@src/store/appStore";
   //import { useProductStore } from "../src/store/productStore";
   //import AccountView from "./views/AccountView.vue";
 
@@ -18,7 +18,7 @@
     //   return accumulator + item.price;
     // }, 0)
     let sum = 0;
-    appStore.cart.forEach(({ _, item }) => (sum += item.price * item.quantity));
+    appStore.cart.forEach(({ item }) => (sum += item.price * item.quantity));
     return sum;
   });
 
@@ -34,6 +34,7 @@
         item.quantity++;
       }
     });
+    appStore.writeCart();
   }
 
   function removeOneFromQuantity(cartItemId: string) {
@@ -46,6 +47,7 @@
         }
       }
     });
+    appStore.writeCart();
   }
 
   // window.addEventListener(
@@ -148,31 +150,6 @@
             no-wrap
             @click="about"
           ></q-btn>
-          <!-- <q-btn
-            v-if="usersStore.loggedUser"
-            class="q-ml-sm q-px-md pull-right"
-            flat
-            label="Logout"
-            no-caps
-            @click="LOGOUT"
-          ></q-btn>
-          <q-btn
-            v-else
-            v-show="usersStore.loggedUser == null"
-            class="q-ml-sm q-px-md pull-right"
-            flat
-            label="Login"
-            no-caps
-            @click="LOGIN"
-          ></q-btn>
-          <q-btn
-            v-show="usersStore.loggedUser == null"
-            class="q-ml-sm q-px-md pull-right"
-            flat
-            label="Register"
-            no-caps
-            @click="newRegister"
-          ></q-btn> -->
           <q-btn-dropdown
             class="q-ml-sm q-px-md pull-right"
             flat

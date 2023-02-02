@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useProductStore } from "../store/productStore";
   import { storeToRefs } from "pinia";
-  import router from "src/router";
+  import router from "@src/router";
   import { useUsersStore } from "../store/usersStore";
   import { watch, onMounted, ref } from "vue";
 
@@ -84,7 +84,7 @@
   });
 </script>
 <template>
-  <q-page>
+  <q-page style="margin-top: 64px">
     <div class="q-pa-md">
       <q-table
         v-model:pagination="pagination"
@@ -134,9 +134,6 @@
           {{ selected.length > 1 ? "Delete selected records" : "Delete selected record" }}
         </q-btn>
       </div>
-      <!-- <p>Pagination object: {{ pagination }}</p> -->
-      <!-- <p>Selected array: {{ selected }}</p> -->
-      <!-- <div>Filter: "{{ pagination.filter }}"</div> -->
     </div>
     <q-dialog v-model="showEditDialog" persistent @before-show="BeforeShowDialog()">
       <q-card class="q-pa-md" style="width: 60vw; min-width: 300px">
@@ -144,17 +141,6 @@
           <div class="row">
             <div v-if="productStore.product" class="col-12 q-gutter-md">
               <h4 class="text-center q-mt-lg q-mb-none">Edit document</h4>
-              <!-- <q-select
-              //   v-model="productStore.product.adosav"
-              //   clearable
-              //   emit-value
-              //   rounded outlined
-              //   label="Adósáv:"
-              //   map-options
-              //   option-label="sav"
-              //   option-value="_id"
-              //   :options="adosavokStore.products.sort((a, b) => a.sav!.localeCompare(b.sav!))"
-              // /> -->
               <q-input
                 v-model="productStore.product._id"
                 label="id...:"
@@ -164,21 +150,21 @@
               />
               <q-input
                 v-model="productStore.product.name"
-                label="Név:"
+                label="Name:"
                 outlined
                 rounded
                 type="text"
               />
               <q-input
                 v-model="productStore.product.price"
-                label="Ár:"
+                label="Price:"
                 outlined
                 rounded
                 type="number"
               />
               <q-input
                 v-model="productStore.product.type"
-                label="Tipus:"
+                label="Type:"
                 outlined
                 rounded
                 type="text"
@@ -207,47 +193,5 @@
     </q-dialog>
   </q-page>
 </template>
-
-<!-- <template>
-//   <q-page>
-//     <div class="q-pa-md">
-//       <q-table
-//         v-model:selected="selected"
-//         binary-state-sort
-//         :columns="columns"
-//         dense
-//         row-key="_id"
-//         :rows="products"
-//         selection="multiple"
-//         title="Product"
-//         wrap-cells
-//       ></q-table>
-//       <-- Buttons:  --
-//       <div class="row justify-center q-ma-sm q-gutter-sm">
-//         <q-btn v-show="selected.length != 0" color="orange" no-caps @click="clearSelection">
-//           {{ selected.length > 1 ? "Clear selections" : "Clear selection" }}
-//         </q-btn>
-//         <q-btn
-//           v-show="usersStore.loggedUser && selected.length == 0"
-//           color="green"
-//           no-caps
-//           @click="newRecord"
-//         >
-//           New record
-//         </q-btn>
-//         <q-btn v-show="selected.length == 1" color="blue" no-caps @click="editRecord">
-//           Edit record
-//         </q-btn>
-//         <q-btn v-show="selected.length != 0" color="red" no-caps @click="deleteRecord">
-//           {{ selected.length > 1 ? "Delete selected records" : "Delete selected record" }}
-//         </q-btn>
-//       </div>
-//        <p>Pagination object: {{ pagination }}</p> --
-//        <p>Selected array: {{ selected }}</p> -->
-
-<!-- <div>Filter: "{{ pagination.filter }}"</div> --
-//     </div>
-//   </q-page>
-// </template> -->
 
 <style scoped></style>

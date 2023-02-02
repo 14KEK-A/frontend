@@ -1,7 +1,7 @@
 import $axios from "./axios.instance";
 import { defineStore } from "pinia";
 import { Notify, Loading } from "quasar";
-import router from "src/router";
+import router from "@src/router";
 
 Notify.setDefaults({
   position: "bottom",
@@ -232,7 +232,8 @@ export const useUsersStore = defineStore({
             message: "Nothing changed!",
             color: "negative",
           });
-          process.exit(0);
+          // process.exit(0);
+          return;
         }
         Loading.show();
         $axios

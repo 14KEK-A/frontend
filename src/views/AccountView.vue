@@ -3,7 +3,7 @@
   import { useAppStore } from "../store/appStore";
   import LoginDialog from "../components/LoginDialog.vue";
   import { storeToRefs } from "pinia";
-  import router from "src/router";
+  import router from "@src/router";
   import { watch, computed, onMounted } from "vue";
 
   const usersStore = useUsersStore();

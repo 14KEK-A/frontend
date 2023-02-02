@@ -1,10 +1,8 @@
 <script setup lang="ts">
-  // import { useUtcakStore } from "../store/utcakStore";
   import { useOrderStore } from "../store/orderStore";
-  import router from "src/router";
+  import router from "@src/router";
   import { onMounted } from "vue";
 
-  // const utcakStore = useUtcakStore();
   const orderStore = useOrderStore();
 
   onMounted(() => {
@@ -12,7 +10,7 @@
   });
 
   function Submit() {
-    orderStore.create();
+    orderStore.createneworder();
   }
 
   function Reset() {
@@ -47,6 +45,7 @@
             rounded
             type="date"
           />
+          <q-datetime v-model="orderStore.order.products" label="Order date:" outlined rounded />
           <div class="row justify-center">
             <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
             <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />

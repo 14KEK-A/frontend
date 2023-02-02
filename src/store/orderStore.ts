@@ -1,7 +1,7 @@
 import $axios from "./axios.instance";
 import { defineStore } from "pinia";
 import { Notify, Loading } from "quasar";
-import router from "src/router";
+import router from "@src/router";
 
 Notify.setDefaults({
   position: "bottom",
@@ -16,20 +16,21 @@ interface IPaginatedParams {
   sort: string;
   keyword?: string;
 }
-interface Iorderdetails {
+export interface Iorderdetails {
   product_id: string;
-  orders_id: string;
-  discount: boolean;
+  //orders_id: string;
+  //discount: boolean;
+  name: string;
   price: number;
   quantity: number;
-  inCart: boolean;
+  //inCart: boolean;
 }
-
+//Array<{ id: string; item: IShopItem }>;
 interface IOrder {
   _id?: string; // PK
   ship_date?: Date;
   order_date?: Date;
-  products?: (Iorderdetails | string)[];
+  products?: Array<{ id: string; item: Iorderdetails }>;
 }
 interface IPagination {
   sortBy?: string;
@@ -41,9 +42,9 @@ interface IPagination {
 }
 
 interface IState {
-  orders: Array<IOrder>; // store documents (records) after get method(s)
-  order: IOrder; // temporary object for create, edit and delete method
-  dataOld: IOrder; // temporary object for patch method (store order here before edit)
+  orders: Array<IOrder>;
+  order: IOrder;
+  dataOld: IOrder;
   selected: Array<IOrder>;
   selectedOrderdetails: Array<Iorderdetails>;
   isLoading: boolean;
@@ -121,7 +122,8 @@ export const useOrderStore = defineStore({
             message: "Nothing changed!",
             color: "negative",
           });
-          process.exit(0);
+          // process.exit(0);
+          return;
         }
         Loading.show();
         $axios
@@ -195,38 +197,59 @@ export const useOrderStore = defineStore({
         else this.isLoading = false;
       }
     },
-    async removeFromCartById(): Promise<void> {
-      Loading.show();
-      this.isLoading = true;
-      if (this.selectedOrderdetails.length) {
-        const id_for_remove = this.selectedOrderdetails.pop()?.product_id;
-        await $axios.patch(`/orders/${id_for_remove}`).then(() => {
-          Loading.hide();
-          Notify.create({
-            message: `Cart item with id=${id_for_remove} has been deleted successfully!`,
-            color: "positive",
-          });
-        });
+    async create(
+      cart: {
+        id: string;
+        item: {
+          name: string;
+          price: number;
+          quantity: number;
+        };
+      }[]
+    ): Promise<void> {
+      console.log(this.order);
+      interface Product {
+        product_id: string;
+        price: number;
+        quantity: number;
       }
-    },
-    async addToCart(): Promise<void> {
-      if (this.order) {
-        Loading.show();
-        // delete this.user.category;
-        $axios.patch("/orders", this.order).then((res) => {
+      const itemsFromCart: Product[] = [];
+      cart.forEach((item) => {
+        itemsFromCart.push({
+          product_id: item.id,
+          price: item.item.price,
+          quantity: item.item.quantity,
+        });
+      });
+
+      console.log("itemsFromCart: ", itemsFromCart);
+      // if (this.order) {
+      Loading.show();
+      // delete this.order.category;
+      $axios
+        .post("/orders", { products: itemsFromCart })
+        .then((res) => {
           Loading.hide();
           if (res && res.data) {
-            this.order = {};
-            //this.getAll();
+            // this.order = {};
+            this.getAll();
             Notify.create({
-              message: `New Cart item with id=${res.data.product_id} has been added successfully!`,
+              message: `Your order has been saved successfully!`,
               color: "positive",
             });
+            //router.push("/qtableorder");
           }
+        })
+        .catch((error) => {
+          Loading.hide();
+          Notify.create({
+            message: `Error (${error.response.order.status}) while create: ${error.response.order.message}`,
+            color: "negative",
+          });
         });
-      }
+      // }
     },
-    async create(): Promise<void> {
+    async createneworder(): Promise<void> {
       if (this.order) {
         Loading.show();
         // delete this.order.category;

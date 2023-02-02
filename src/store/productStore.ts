@@ -1,7 +1,7 @@
 import $axios from "./axios.instance";
 import { defineStore } from "pinia";
 import { Notify, Loading } from "quasar";
-import router from "src/router";
+import router from "@src/router";
 
 Notify.setDefaults({
   position: "bottom",
@@ -25,7 +25,7 @@ export interface IProduct {
   picture?: string;
   description?: string;
   orders_id?: { ship_date: Date; order_date: Date };
-  carts_id?: { nev: string };
+  //carts_id?: { nev: string };
   //ratings_id?: { stars: number };
 }
 interface IPagination {
