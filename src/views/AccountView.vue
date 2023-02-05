@@ -25,22 +25,6 @@
     usersStore.getLoggedUser;
     router.push("/useredituser");
   }
-  //   function getLoggedUser() {
-  //   if (!anyLoggedUser.value) {
-  //     usersStore.loginUser({
-  //       email: state.email,
-  //       password: state.password,
-  //     });
-  //   }
-  // }
-  // function Submit() {    ---EDIT ACCOUNT
-  //   usersStore.editById();
-  // }
-  // function editRecord(): void {
-  //   usersStore.user = selected.value[0];
-  //   usersStore.getById();
-  //   router.push("/edituser");
-  // }
   function newRegister(): void {
     usersStore.user = {};
     router.push("/newregister");
@@ -67,29 +51,33 @@
         @click="newRegister"
       />
       <LoginDialog />
-    </div>
-    <div v-if="anyLoggedUser" class="q-pa-md row items-start q-gutter-md">
-      <q-card bordered class="bg-grey-9 my-card" dark>
-        <q-card-section>
-          <div class="text-h6">First Name: {{ usersStore.getLoggedUser?.first_name }}</div>
-          <div class="text-h6">Last Name: {{ usersStore.getLoggedUser?.last_name }}</div>
-          <div class="text-h6">Username: {{ usersStore.getLoggedUser?.user_name }}</div>
-        </q-card-section>
-        <q-separator inset />
+      <div v-if="anyLoggedUser" class="q-pa-md row items-start q-gutter-md">
+        <q-card bordered class="bg-primary text-white" dark>
+          <q-card-section>
+            <div class="text-h6">First Name: {{ usersStore.getLoggedUser?.first_name }}</div>
+            <div class="text-h6">Last Name: {{ usersStore.getLoggedUser?.last_name }}</div>
+            <div class="text-h6">Username: {{ usersStore.getLoggedUser?.user_name }}</div>
+          </q-card-section>
+          <q-separator inset />
 
-        <q-card-section>Address: {{ usersStore.getLoggedUser?.address }}</q-card-section>
-        <q-card-section>E-mail: {{ usersStore.getLoggedUser?.email }}</q-card-section>
-        <q-card-section>Phone number: {{ usersStore.getLoggedUser?.phone_number }}</q-card-section>
-        <div style="max-height: 35vh; overflow: hidden">
-          <q-img
-            class="pic"
-            :src="usersStore.getLoggedUser?.picture_URL"
-            style="max-widht: 100%; height: auto; opacity: 0.6"
-          ></q-img>
-        </div>
-        <q-separator class="q-my-md" inset />
-        <q-btn class="q-my-md" color="blue" no-caps @click="editRecord">Edit</q-btn>
-      </q-card>
+          <q-card-section>Address: {{ usersStore.getLoggedUser?.address }}</q-card-section>
+          <q-card-section>E-mail: {{ usersStore.getLoggedUser?.email }}</q-card-section>
+          <q-card-section>
+            Phone number: {{ usersStore.getLoggedUser?.phone_number }}
+          </q-card-section>
+          <div style="max-height: 35vh; overflow: hidden">
+            <q-img
+              class="pic"
+              :src="usersStore.getLoggedUser?.picture_URL"
+              style="max-widht: 100%; height: auto; opacity: 1"
+            ></q-img>
+          </div>
+          <q-separator class="q-my-md" flex-center inset />
+          <q-btn class="q-my-md" color="info" flex-center no-caps text-black @click="editRecord">
+            Edit
+          </q-btn>
+        </q-card>
+      </div>
     </div>
   </q-page>
 </template>
