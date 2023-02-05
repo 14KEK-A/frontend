@@ -36,11 +36,6 @@ export const useAppStore = defineStore({
       this.showLoginDialog = value;
     },
     readCart(): void {
-      // this.cart = LocalStorage.getItem("shopingCart") as Map<string, IShopItem>;
-      // console.log();
-      //this.cart = localStorage.get("shopingCart");
-      //this.carts = LocalStorage.getItem(product_id);
-      //this.cart.set("_id", { price: 500, quantity: 1 });
       console.log("readCart: ", JSON.parse(LocalStorage.getItem("shopingCart") as string));
 
       const savedCart: { id: string; item: IShopItem }[] | null = JSON.parse(
@@ -55,18 +50,11 @@ export const useAppStore = defineStore({
       console.log("card after saved: ", this.cart);
     },
     writeCart(): void {
-      // LocalStorage.set("shopingCart", this.cart);
-      //this.carts = LocalStorage.getItem(product_id);
-      // console.log(JSON.stringify(this.cart));
       LocalStorage.set("shopingCart", JSON.stringify(this.cart));
       console.log("writeCart: ", this.cart);
     },
-    deleteCart(): void {
-      // LocalStorage.set("shopingCart", this.cart);
-      //this.carts = LocalStorage.getItem(product_id);
-      // console.log(JSON.stringify(this.cart));
-      //LocalStorage.remove(this.cart);
-      //console.log("writeCart: ", this.cart);
-    },
+  },
+  persist: {
+    enabled: true,
   },
 });

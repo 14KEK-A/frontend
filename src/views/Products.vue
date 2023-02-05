@@ -93,7 +93,7 @@
             <q-img
               class="pic"
               :src="product?.picture"
-              style="max-widht: 100%; height: auto; opacity: 0.6"
+              style="max-widht: auto; height: auto; opacity: 1 object-fit: cover"
             ></q-img>
           </div>
           <q-separator class="q-my-md" inset />

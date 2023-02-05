@@ -290,4 +290,7 @@ export const useUsersStore = defineStore({
       }
     },
   },
+  persist: {
+    enabled: true,
+  },
 });

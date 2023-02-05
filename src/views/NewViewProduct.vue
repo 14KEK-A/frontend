@@ -49,6 +49,13 @@
             rounded
             type="textarea"
           />
+          <q-input
+            v-model.string="productStore.product.picture"
+            label="Picture_URL:"
+            outlined
+            rounded
+            type="textarea"
+          />
           <div class="row justify-center">
             <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
             <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />

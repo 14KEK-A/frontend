@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "lib": ["esnext", "dom"],
-    "types": ["node", "vite/client", "vitest", "vitest/globals", "cypress"],
+    "types": ["node", "vite/client", "vitest", "vitest/globals", "cypress", "pinia-plugin-persist"],
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"]
