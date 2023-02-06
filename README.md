@@ -1,1 +1,1 @@
-# frontend
+# Győri Szakképzési Centrum Jedlik Ányos Gépipari és Informatikai Technikum Szoftver fejlesztő és tesztelő vizsgaremek-4pet-Andrási_Gergő - Unger_Attila_Pál-frontend

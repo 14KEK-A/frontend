@@ -8,12 +8,8 @@
   const appStore = useAppStore();
 
   const { isLoading, pagination, selected } = storeToRefs(productStore);
-  //const { writeCart } = storeToRefs(appStore);
 
   function AddToCart(product: IProduct) {
-    // id: string, price: number, name: string
-    // console.log("AddToCart product: ", product);
-    // productStore.product._id = id;
     if (
       appStore.cart.some(({ id: itemId }) => {
         if (itemId == product._id) {
@@ -37,29 +33,14 @@
     }
 
     appStore.writeCart();
-    // appStore.cart.
-
-    // appStore.cart.set(id, {
-    //   price: productStore.product.price,
-    //   quantity: 1,
-    // });
-    // console.log(appStore.cart);
   }
   watch(isLoading, () => {
     productStore.getAll();
   });
-  // function filterChanged(): void {
-  //   selected.value = [];
-  // }
   onMounted(() => {
-    // appStore.readCart();
-    // console.log(appStore.cart);
     productStore.getAll();
     productStore.getById();
   });
-  // function actrating(): void {
-  //   ratingStore.getrating?.products_id;
-  // }
 </script>
 <template>
   <q-page
@@ -97,12 +78,6 @@
             ></q-img>
           </div>
           <q-separator class="q-my-md" inset />
-          <!-- <q-rating
-            v-model="productStore.product.ratings_id?.star"
-            color="yellow"
-            icon="star"
-            size="2em"
-          /> -->
           <q-card-actions>
             <q-expansion-item expand-separator icon="view_module" label="More" switch-toggle-side>
               <q-card-section>{{ product.description }}</q-card-section>

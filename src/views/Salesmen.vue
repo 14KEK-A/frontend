@@ -16,8 +16,6 @@
 </script>
 <template>
   <q-page :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-4'" padding style="margin-top: 64px">
-    <!-- :style="{ 'background-image': `url(${book?.picture})` }"
-			style="height: 90vh; background-repeat: no-repeat; background-color: opacity: 0.1;" -->
     <q-card class="card">
       <q-card-section>
         <div class="row">

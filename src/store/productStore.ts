@@ -25,8 +25,6 @@ export interface IProduct {
   picture?: string;
   description?: string;
   orders_id?: { ship_date: Date; order_date: Date };
-  //carts_id?: { nev: string };
-  //ratings_id?: { stars: number };
 }
 interface IPagination {
   sortBy?: string;
@@ -37,9 +35,9 @@ interface IPagination {
   filter?: string;
 }
 interface IState {
-  products: Array<IProduct>; // store documents (records) after get method(s)
-  product: IProduct; // temporary object for create, edit and delete method
-  productOld: IProduct; // temporary object for patch method (store product here before edit)
+  products: Array<IProduct>;
+  product: IProduct;
+  productOld: IProduct;
   selected: Array<IProduct>;
   isLoading: boolean;
   pagination: IPagination;
@@ -111,7 +109,6 @@ export const useProductStore = defineStore({
         .then((res) => {
           if (res && res.data) {
             this.products = res.data.orders;
-            // this.numberOfStreets = res.product.count; // ez ide majd nem kell
             this.pagination.rowsNumber = res.data.count;
           }
           Loading.hide();
@@ -191,13 +188,11 @@ export const useProductStore = defineStore({
     async create(): Promise<void> {
       if (this.product) {
         Loading.show();
-        // delete this.product.category;
         $axios
           .post("products/", this.product)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              // this.product = {};
               this.getAll();
               Notify.create({
                 message: `New document with id=${res.data._id} has been saved successfully!`,

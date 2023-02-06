@@ -158,7 +158,6 @@ export const useOrderStore = defineStore({
         .then((res) => {
           if (res && res.data) {
             this.orders = res.data.orders;
-            // this.numberOfStreets = res.order.count; // ez ide majd nem kell
             this.pagination.rowsNumber = res.data.count;
           }
           Loading.hide();
@@ -223,9 +222,7 @@ export const useOrderStore = defineStore({
       });
 
       console.log("itemsFromCart: ", itemsFromCart);
-      // if (this.order) {
       Loading.show();
-      // delete this.order.category;
       $axios
         .post("/orders", { products: itemsFromCart })
         .then((res) => {
@@ -237,7 +234,6 @@ export const useOrderStore = defineStore({
               message: `Your order has been saved successfully!`,
               color: "positive",
             });
-            //router.push("/qtableorder");
           }
         })
         .catch((error) => {

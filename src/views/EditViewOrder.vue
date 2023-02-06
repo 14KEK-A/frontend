@@ -4,7 +4,6 @@
   import router from "@src/router";
   import { onMounted } from "vue";
 
-  // const utcakStore = useUtcakStore();
   const orderStore = useOrderStore();
 
   onMounted(() => {

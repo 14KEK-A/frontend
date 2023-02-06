@@ -4,7 +4,6 @@
   import router from "@src/router";
   import { onMounted } from "vue";
 
-  // const utcakStore = useUtcakStore();
   const ratingStore = useRatingStore();
 
   onMounted(() => {
@@ -44,9 +43,6 @@
             <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
             <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />
           </div>
-          <!-- <p>Actual: {{ utcakStore.data }}</p> -->
-          <!-- <p>Old: {{ utcakStore.dataOld }}</p> -->
-          <!-- <p>Selected: {{ utcakStore.selected }}</p> -->
         </q-form>
       </div>
     </div>

@@ -133,7 +133,6 @@ export const useUsersStore = defineStore({
     async create(): Promise<void> {
       if (this.user) {
         Loading.show();
-        // delete this.user.category;
         $axios
           .post("auth/register", this.user)
           .then((res) => {
@@ -145,7 +144,6 @@ export const useUsersStore = defineStore({
                 message: `New user with id=${res.data._id} has been registered successfully!`,
                 color: "positive",
               });
-              //router.push("/qtableuser");
             }
           })
           .catch((error) => {
@@ -206,7 +204,6 @@ export const useUsersStore = defineStore({
         .then((res) => {
           if (res && res.data) {
             this.users = res.data.orders;
-            // this.numberOfStreets = res.user.count; // ez ide majd nem kell
             this.pagination.rowsNumber = res.data.count;
           }
           Loading.hide();

@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { useProductStore } from "../store/productStore";
   import router from "@src/router";
-  // import { EditDialog } from "../components/EditDialog.vue";
   import { onMounted } from "vue";
 
   const productStore = useProductStore();
@@ -45,9 +44,6 @@
             <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
             <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />
           </div>
-          <!-- <p>Actual: {{ utcakStore.data }}</p> -->
-          <!-- <p>Old: {{ utcakStore.dataOld }}</p> -->
-          <!-- <p>Selected: {{ utcakStore.selected }}</p> -->
         </q-form>
       </div>
     </div>

@@ -70,14 +70,6 @@
           />
           <div id="registerForm">
             <q-input v-model.string="userStore.user.password" label="Password:" type="text" />
-            <!-- <input
-              v-model=""
-              class="form-control"
-              name="conpassword"
-              placeholder="Retype password"
-              required
-              type="password"
-            /> -->
           </div>
           <q-input
             v-model.string="userStore.user.email"
@@ -89,9 +81,7 @@
           <q-input v-model.string="userStore.user.picture_URL" label="Picture_URL:" type="text" />
           <div class="row justify-center">
             <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
-            <!-- <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" /> -->
           </div>
-          <p>Actual: {{ userStore.user }}</p>
         </q-form>
       </div>
     </div>
@@ -99,43 +89,3 @@
 </template>
 
 <style scoped></style>
-<!-- computed: {
-  ConfirmPWD() {
-      return [
-          (v) => !!v || "type pw",
-          (v) => v == this.$refs.fldPasswordChange.value || "Different pw"
-       ]
-  },
-  Required() {
-      return [(v) => !!v || 'type pw']
-  }
-},
-
-
-<q-input filled
-             v-model="loginData.password"
-             label="Votre mot de passe"
-             hint="Saisissez votre mot de passe"
-             v-bind:type="isPwd ? 'password' : ''"
-             lazy-rules
-             v-bind:rules="Required"
-             ref="fldPasswordChange">
-        <template v-slot:append>
-            <q-icon :name="isPwd ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
-                    v-on:click="isPwd = !isPwd"></q-icon>
-        </template>
-    </q-input>
-    <q-input filled
-             v-model="loginData.passwordConfirm"
-             label="Confirmez votre mot de passe"
-             v-bind:type="isPwd ? 'password' : ''"
-             lazy-rules
-             v-bind:rules="ConfirmPWD"
-             ref="fldPasswordChangeConfirm">
-        <template v-slot:append>
-            <q-icon :name="isPwd ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
-                    v-on:click="isPwd = !isPwd"></q-icon>
-        </template>
-    </q-input> -->

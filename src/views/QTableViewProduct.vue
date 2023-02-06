@@ -72,7 +72,6 @@
       sort: descending ? "-1" : "1",
       keyword: filter,
     });
-    // don't forget to update local pagination object
     pagination.value.page = page;
     pagination.value.rowsPerPage = rowsPerPage;
     pagination.value.sortBy = sortBy;
@@ -180,12 +179,6 @@
                 <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
                 <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />
               </div>
-
-              <!-- p>Actual: {{ productStore.product }}</p> -->
-
-              <!-- <p>Old: {{ productStore.productOld }}</p> -->
-
-              <!-- <p>Selected: {{ productStore.selected }}</p> -->
             </div>
           </div>
         </q-form>

@@ -26,7 +26,6 @@
       <div v-if="ratingStore.rating" class="col-12 col-sm-8 col-md-6 col-lg-4 q-gutter-md">
         <q-form class="q-gutter-md" @reset="Reset()" @submit="Submit">
           <h4 class="text-center q-mt-lg q-mb-none">New record</h4>
-          <!-- <q-input v-model.number="ratingStore.data._id" rounded outlined label="_id:" type="number" /> -->
           <q-input v-model="ratingStore.rating.star" label="Star:" outlined rounded type="text" />
           <q-input
             v-model.string="ratingStore.rating.comment"

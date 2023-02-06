@@ -19,7 +19,6 @@
     orderStore.create(appStore.cart);
     appStore.cart.length = 0;
     appStore.writeCart();
-    //isConfirm = true;
   }
   function addOneToQuantity(cartItemId: string) {
     appStore.cart.some(({ id, item }) => {
@@ -95,9 +94,6 @@
     <h5>
       <q-item-section v-if="totalPrice != 0">Total price: {{ totalPrice }} Ft</q-item-section>
     </h5>
-    <!-- <div v-if="usersStore.loggedUser && appStore.cart.length != 0">
-      <q-btn color="green" style="align-items: right" @click="Confirm()">Confirm</q-btn>
-    </div> -->
     <h5 v-if="usersStore.loggedUser && appStore.cart.length != 0">
       <q-btn color="green" style="align-items: right" @click="Confirm()">Confirm Order</q-btn>
     </h5>

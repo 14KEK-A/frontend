@@ -19,9 +19,9 @@ interface IPartner {
 }
 
 interface IState {
-  partners: Array<IPartner>; // store documents (records) after get method(s)
-  partner: IPartner; // temporary object for create, edit and delete method
-  dataOld: IPartner; // temporary object for patch method (store partner here before edit)
+  partners: Array<IPartner>;
+  partner: IPartner;
+  dataOld: IPartner;
   selected: Array<IPartner>;
   isLoading: boolean;
   pagination: IPagination;
@@ -188,13 +188,11 @@ export const usePartnerStore = defineStore({
     async create(): Promise<void> {
       if (this.partner) {
         Loading.show();
-        // delete this.partner.category;
         $axios
           .post("/partners", this.partner)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              // this.partner = {};
               this.getAll();
               Notify.create({
                 message: `New document with id=${res.data._id} has been saved successfully!`,

@@ -63,7 +63,6 @@
       sort: descending ? "-1" : "1",
       keyword: filter,
     });
-    // don't forget to update local pagination object
     pagination.value.page = page;
     pagination.value.rowsPerPage = rowsPerPage;
     pagination.value.sortBy = sortBy;
@@ -124,9 +123,6 @@
           {{ selected.length > 1 ? "Delete selected records" : "Delete selected record" }}
         </q-btn>
       </div>
-      <!-- <p>Pagination object: {{ pagination }}</p> -->
-      <!-- <p>Selected array: {{ selected }}</p> -->
-      <!-- <div>Filter: "{{ pagination.filter }}"</div> -->
     </div>
     <q-dialog v-model="showEditDialog" persistent @before-show="BeforeShowDialog()">
       <q-card class="q-pa-md" style="width: 60vw; min-width: 300px">
@@ -159,12 +155,6 @@
                 <q-btn class="q-mr-md" color="green" label="Save" no-caps type="submit" />
                 <q-btn class="q-mr-md" color="red" label="Cancel" no-caps type="reset" />
               </div>
-
-              <!-- p>Actual: {{ ratingStore.rating }}</p> -->
-
-              <!-- <p>Old: {{ ratingStore.productOld }}</p> -->
-
-              <!-- <p>Selected: {{ ratingStore.selected }}</p> -->
             </div>
           </div>
         </q-form>

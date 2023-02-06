@@ -5,10 +5,4 @@ const $axios = axios.create({
   withCredentials: true,
 });
 
-// const $axios = axios.create({
-//   //
-//   baseURL: "https://fourpet.onrender.com",
-//   withCredentials: true,
-// });
-
 export default $axios;

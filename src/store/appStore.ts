@@ -10,10 +10,7 @@ interface IState {
   showLoginDialog: boolean;
   email: string;
   password: string;
-  //carts: Array<ICart>;
-  // cart: Map<string, IShopItem>;
   cart: Array<{ id: string; item: IShopItem }>;
-  //ICart: (ICart | string)[];
 }
 
 export const useAppStore = defineStore({
@@ -22,8 +19,6 @@ export const useAppStore = defineStore({
     showLoginDialog: false,
     email: "admin@admin.com",
     password: "admin",
-    //carts: [],
-    // cart: new Map<string, IShopItem>(),
     cart: [],
   }),
   getters: {

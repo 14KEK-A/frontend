@@ -38,9 +38,9 @@ interface IRating {
 }
 
 interface IState {
-  ratings: Array<IRating>; // store documents (records) after get method(s)
-  rating: IRating; // temporary object for create, edit and delete method
-  dataOld: IRating; // temporary object for patch method (store rating here before edit)
+  ratings: Array<IRating>;
+  rating: IRating;
+  dataOld: IRating;
   selected: Array<IRating>;
   isLoading: boolean;
   pagination: IPagination;
@@ -171,7 +171,6 @@ export const useRatingStore = defineStore({
         .then((res) => {
           if (res && res.data) {
             this.ratings = res.data.orders;
-            // this.numberOfStreets = res.product.count; // ez ide majd nem kell
             this.pagination.rowsNumber = res.data.count;
           }
           Loading.hide();
@@ -212,13 +211,11 @@ export const useRatingStore = defineStore({
     async create(): Promise<void> {
       if (this.rating) {
         Loading.show();
-        // delete this.rating.category;
         $axios
           .post("/ratings", this.rating)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
-              // this.rating = {};
               this.getAll();
               Notify.create({
                 message: `New document with id=${res.data._id} has been saved successfully!`,
